@@ -9,9 +9,12 @@ import presentation.task.TaskViewModel
 
 val appModule = module {
     factory { HomeViewModel(get()) }
-    factory { TaskViewModel(get()) }
+    factory { TaskViewModel(get(), get()) }
     single { provideToDoRepository() }
-    factory { AddTaskUseCase(get()) }
+    factory { provideAddTaskUseCase(get()) }
 }
 
 private fun provideToDoRepository(): ToDoRepository = ToDoRepositoryImpl()
+
+private fun provideAddTaskUseCase(toDoRepository: ToDoRepository): AddTaskUseCase =
+    AddTaskUseCase(toDoRepository)
