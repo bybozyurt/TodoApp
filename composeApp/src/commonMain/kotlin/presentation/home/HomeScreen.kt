@@ -35,7 +35,7 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import domain.RequestState
 import domain.TaskAction
-import domain.ToDoTask
+import domain.model.ToDoTask
 import presentation.task.TaskScreen
 import presentation.components.ErrorScreen
 import presentation.components.LoadingScreen

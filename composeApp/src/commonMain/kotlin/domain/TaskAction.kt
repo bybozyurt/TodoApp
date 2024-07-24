@@ -1,5 +1,7 @@
 package domain
 
+import domain.model.ToDoTask
+
 sealed class TaskAction {
     data class Add(val task: ToDoTask) : TaskAction()
     data class Update(val task: ToDoTask) : TaskAction()

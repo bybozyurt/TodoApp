@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import domain.ToDoTask
+import domain.model.ToDoTask
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.delete
 import kotlinproject.composeapp.generated.resources.star

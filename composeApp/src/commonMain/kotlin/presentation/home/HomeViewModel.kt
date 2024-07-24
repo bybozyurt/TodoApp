@@ -7,7 +7,7 @@ import cafe.adriel.voyager.core.model.screenModelScope
 import data.MongoDB
 import domain.RequestState
 import domain.TaskAction
-import domain.ToDoTask
+import domain.model.ToDoTask
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
