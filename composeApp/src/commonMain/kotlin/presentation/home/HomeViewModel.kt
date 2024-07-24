@@ -4,10 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import data.MongoDB
 import domain.RequestState
 import domain.TaskAction
 import domain.model.ToDoTask
+import domain.repository.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
@@ -17,7 +17,9 @@ import kotlinx.coroutines.launch
 typealias MutableTasks = MutableState<RequestState<List<ToDoTask>>>
 typealias Tasks = MutableState<RequestState<List<ToDoTask>>>
 
-class HomeViewModel(private val mongoDB: MongoDB) : ScreenModel {
+class HomeViewModel(
+    private val repository: ToDoRepository,
+) : ScreenModel {
     private var _activeTasks: MutableTasks = mutableStateOf(RequestState.Idle)
     val activeTasks: Tasks = _activeTasks
 
@@ -29,13 +31,13 @@ class HomeViewModel(private val mongoDB: MongoDB) : ScreenModel {
         _completedTasks.value = RequestState.Loading
         screenModelScope.launch(Dispatchers.Main) {
             delay(500)
-            mongoDB.readActiveTasks().collectLatest {
+            repository.getFavoriteTasks().collectLatest {
                 _activeTasks.value = it
             }
         }
         screenModelScope.launch(Dispatchers.Main) {
             delay(500)
-            mongoDB.readCompletedTasks().collectLatest {
+            repository.getCompletedTasks().collectLatest {
                 _completedTasks.value = it
             }
         }
@@ -61,19 +63,19 @@ class HomeViewModel(private val mongoDB: MongoDB) : ScreenModel {
 
     private fun setCompleted(task: ToDoTask, completed: Boolean) {
         screenModelScope.launch(Dispatchers.IO) {
-            mongoDB.setCompleted(task, completed)
+            repository.setCompleted(task, completed)
         }
     }
 
     private fun setFavorite(task: ToDoTask, isFavorite: Boolean) {
         screenModelScope.launch(Dispatchers.IO) {
-            mongoDB.setFavorite(task, isFavorite)
+            repository.setFavorite(task, isFavorite)
         }
     }
 
     private fun deleteTask(task: ToDoTask) {
         screenModelScope.launch(Dispatchers.IO) {
-            mongoDB.deleteTask(task)
+            repository.deleteTask(task)
         }
     }
 }

@@ -2,15 +2,15 @@ package presentation.task
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import data.MongoDB
 import domain.TaskAction
 import domain.model.ToDoTask
+import domain.repository.ToDoRepository
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class TaskViewModel(
-    private val mongoDB: MongoDB
+    private val repository: ToDoRepository,
 ): ScreenModel {
 
     fun setAction(action: TaskAction) {
@@ -31,13 +31,13 @@ class TaskViewModel(
 
     private fun addTask(task: ToDoTask) {
         screenModelScope.launch(Dispatchers.IO) {
-            mongoDB.addTask(task)
+            repository.addTask(task)
         }
     }
 
     private fun updateTask(task: ToDoTask) {
         screenModelScope.launch(Dispatchers.IO) {
-            mongoDB.updateTask(task)
+            repository.updateTask(task)
         }
     }
 }
