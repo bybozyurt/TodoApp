@@ -1,4 +1,4 @@
-package domain
+package domain.usecase
 
 import domain.model.ToDoTask
 import domain.repository.ToDoRepository
