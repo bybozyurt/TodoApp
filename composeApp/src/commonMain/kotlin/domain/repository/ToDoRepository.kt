@@ -6,7 +6,7 @@ import kotlinx.coroutines.flow.Flow
 
 interface ToDoRepository {
 
-    fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>>?
+    fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>>
 
     suspend fun addTask(task: ToDoTaskEntity)
 

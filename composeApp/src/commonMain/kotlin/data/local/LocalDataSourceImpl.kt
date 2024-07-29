@@ -1,30 +1,37 @@
 package data.local
 
 import database.ToDoDatabase
-import domain.RequestState
 import domain.model.ToDoTaskEntity
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.launch
 
 class LocalDataSourceImpl(
     private val db: ToDoDatabase,
+    private val externalScope: CoroutineScope,
+    private val dispatcher: CoroutineDispatcher,
 ): LocalDataSource {
 
-    override fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>> {
-        return db.toDoDao().getAllTasks().map {
-            tasks -> RequestState.Success(tasks.map { it })
-        }
+    override fun getAllTasks(): Flow<List<ToDoTaskEntity>> {
+        return db.toDoDao().getAllTasks()
     }
 
     override suspend fun addTask(task: ToDoTaskEntity) {
-       db.toDoDao().addTask(task)
+      externalScope.launch(dispatcher) {
+          db.toDoDao().addTask(task)
+      }
     }
 
     override suspend fun updateTask(task: ToDoTaskEntity) {
-        db.toDoDao().updateTask(task)
+        externalScope.launch(dispatcher) {
+            db.toDoDao().updateTask(task)
+        }
     }
 
     override suspend fun deleteTask(task: ToDoTaskEntity) {
-        db.toDoDao().deleteTask(task)
+        externalScope.launch(dispatcher) {
+            db.toDoDao().deleteTask(task)
+        }
     }
 }

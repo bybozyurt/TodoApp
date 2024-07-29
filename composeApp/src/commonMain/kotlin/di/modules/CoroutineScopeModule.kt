@@ -5,7 +5,5 @@ import kotlinx.coroutines.SupervisorJob
 import org.koin.dsl.module
 
 val coroutineScopeModule = module {
-    single { provideCoroutineScopeModule() }
+    single { CoroutineScope(SupervisorJob()) }
 }
-
-private fun provideCoroutineScopeModule() = CoroutineScope(SupervisorJob())

@@ -5,7 +5,7 @@ import domain.model.ToDoTaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {
-    fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>>
+    fun getAllTasks(): Flow<List<ToDoTaskEntity>>
 
     suspend fun addTask(task: ToDoTaskEntity)
 
