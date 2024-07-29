@@ -1,25 +1,20 @@
 package domain.repository
 
+import data.local.ToDoDao
 import domain.RequestState
-import domain.model.ToDoTask
+import domain.model.ToDoTaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface ToDoRepository {
 
-    fun configureTheRealm()
+    fun initDao(dao: ToDoDao)
 
-    fun getFavoriteTasks(): Flow<RequestState<List<ToDoTask>>>
+    fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>>
 
-    fun getCompletedTasks(): Flow<RequestState<List<ToDoTask>>>
+    suspend fun addTask(task: ToDoTaskEntity)
 
-    suspend fun addTask(task: ToDoTask)
+    suspend fun updateTask(task: ToDoTaskEntity)
 
-    suspend fun updateTask(task: ToDoTask)
-
-    suspend fun setCompleted(task: ToDoTask, taskCompleted: Boolean)
-
-    suspend fun setFavorite(task: ToDoTask, isFavorite: Boolean)
-
-    suspend fun deleteTask(task: ToDoTask)
+    suspend fun deleteTask(task: ToDoTaskEntity)
 
 }

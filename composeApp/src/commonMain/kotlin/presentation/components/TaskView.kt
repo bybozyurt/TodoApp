@@ -17,7 +17,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.alpha
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.unit.dp
-import domain.model.ToDoTask
+import domain.model.ToDoTaskEntity
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.delete
 import kotlinproject.composeapp.generated.resources.star
@@ -25,12 +25,12 @@ import org.jetbrains.compose.resources.painterResource
 
 @Composable
 fun TaskView(
-    task: ToDoTask,
+    task: ToDoTaskEntity,
     showActive: Boolean = true,
-    onSelect: (ToDoTask) -> Unit,
-    onComplete: (ToDoTask, Boolean) -> Unit,
-    onFavorite: (ToDoTask, Boolean) -> Unit,
-    onDelete: (ToDoTask) -> Unit
+    onSelect: (ToDoTaskEntity) -> Unit,
+    onComplete: (ToDoTaskEntity, Boolean) -> Unit,
+    onFavorite: (ToDoTaskEntity, Boolean) -> Unit,
+    onDelete: (ToDoTaskEntity) -> Unit
 ) {
     Row(
         modifier = Modifier
@@ -44,8 +44,8 @@ fun TaskView(
     ) {
         Row(verticalAlignment = Alignment.CenterVertically) {
             Checkbox(
-                checked = task.completed,
-                onCheckedChange = { onComplete(task, !task.completed) },
+                checked = task.isCompleted,
+                onCheckedChange = { onComplete(task, !task.isCompleted) },
             )
             Spacer(modifier = Modifier.width(8.dp))
             Text(
@@ -58,7 +58,7 @@ fun TaskView(
         }
         IconButton(
             onClick = {
-                if (showActive) onFavorite(task, !task.favorite)
+                if (showActive) onFavorite(task, !task.isFavorite)
                 else onDelete(task)
             }
         ) {
@@ -68,7 +68,7 @@ fun TaskView(
                     else Res.drawable.delete
                 ),
                 contentDescription = "Favorite Icon",
-                tint = if (task.favorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(
+                tint = if (task.isFavorite) MaterialTheme.colorScheme.primary else MaterialTheme.colorScheme.onSurface.copy(
                     alpha = 0.38f
                 )
             )

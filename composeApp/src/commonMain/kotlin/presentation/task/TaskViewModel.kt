@@ -3,14 +3,12 @@ package presentation.task
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import domain.TaskAction
-import domain.model.ToDoTask
-import domain.repository.ToDoRepository
+import domain.model.ToDoTaskEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.IO
 import kotlinx.coroutines.launch
 
 class TaskViewModel(
-    private val repository: ToDoRepository,
 ): ScreenModel {
 
     fun setAction(action: TaskAction) {
@@ -29,15 +27,15 @@ class TaskViewModel(
         }
     }
 
-    private fun addTask(task: ToDoTask) {
+    private fun addTask(task: ToDoTaskEntity) {
         screenModelScope.launch(Dispatchers.IO) {
-            repository.addTask(task)
+            //repository.addTask(task)
         }
     }
 
-    private fun updateTask(task: ToDoTask) {
+    private fun updateTask(task: ToDoTaskEntity) {
         screenModelScope.launch(Dispatchers.IO) {
-            repository.updateTask(task)
+            //repository.updateTask(task)
         }
     }
 }

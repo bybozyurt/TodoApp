@@ -22,6 +22,7 @@ import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -35,13 +36,13 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import domain.RequestState
 import domain.TaskAction
-import domain.model.ToDoTask
+import domain.model.ToDoTaskEntity
 import presentation.task.TaskScreen
 import presentation.components.ErrorScreen
 import presentation.components.LoadingScreen
 import presentation.components.TaskView
 
-class HomeScreen : Screen {
+class HomeScreen() : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -49,6 +50,10 @@ class HomeScreen : Screen {
         val viewModel = getScreenModel<HomeViewModel>()
         val activeTasks by viewModel.activeTasks
         val completedTasks by viewModel.completedTasks
+
+        LaunchedEffect(Unit) {
+            //viewModel.initDao(toDoDatabase.toDoDao())
+        }
 
         Scaffold(
             topBar = {
@@ -113,18 +118,19 @@ class HomeScreen : Screen {
     }
 }
 
+@OptIn(ExperimentalStdlibApi::class)
 @Composable
 fun DisplayTasks(
     modifier: Modifier = Modifier,
-    tasks: RequestState<List<ToDoTask>>,
+    tasks: RequestState<List<ToDoTaskEntity>>,
     showActive: Boolean = true,
-    onSelect: ((ToDoTask) -> Unit)? = null,
-    onFavorite: ((ToDoTask, Boolean) -> Unit)? = null,
-    onComplete: (ToDoTask, Boolean) -> Unit,
-    onDelete: ((ToDoTask) -> Unit)? = null
+    onSelect: ((ToDoTaskEntity) -> Unit)? = null,
+    onFavorite: ((ToDoTaskEntity, Boolean) -> Unit)? = null,
+    onComplete: (ToDoTaskEntity, Boolean) -> Unit,
+    onDelete: ((ToDoTaskEntity) -> Unit)? = null
 ) {
     var showDialog by remember { mutableStateOf(false) }
-    var taskToDelete: ToDoTask? by remember { mutableStateOf(null) }
+    var taskToDelete: ToDoTaskEntity? by remember { mutableStateOf(null) }
 
     if (showDialog) {
         AlertDialog(
@@ -179,7 +185,7 @@ fun DisplayTasks(
                     LazyColumn(modifier = Modifier.padding(horizontal = 24.dp)) {
                         items(
                             items = it,
-                            key = { task -> task._id.toHexString() }
+                            key = { task -> task.id.toHexString() }
                         ) { task ->
                             TaskView(
                                 showActive = showActive,

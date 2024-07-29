@@ -8,3 +8,12 @@ plugins {
     alias(libs.plugins.realm.plugin) apply false
     alias(libs.plugins.compose.compiler) apply false
 }
+
+buildscript {
+    dependencies {
+        classpath(libs.androidGradle)
+        classpath(libs.composeGradle)
+        classpath(libs.kotlinGradle)
+        classpath((kotlin("serialization", version = "1.8.20")))
+    }
+}

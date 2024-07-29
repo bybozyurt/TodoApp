@@ -27,12 +27,12 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import domain.TaskAction
-import domain.model.ToDoTask
+import domain.model.ToDoTaskEntity
 
 const val DEFAULT_TITLE = "Enter the Title"
 const val DEFAULT_DESCRIPTION = "Add some description"
 
-data class TaskScreen(val task: ToDoTask? = null) : Screen {
+data class TaskScreen(val task: ToDoTaskEntity? = null) : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -76,20 +76,25 @@ data class TaskScreen(val task: ToDoTask? = null) : Screen {
                             if (task != null) {
                                 viewModel.setAction(
                                     action = TaskAction.Update(
-                                        ToDoTask().apply {
-                                            _id = task._id
-                                            title = currentTitle
-                                            description = currentDescription
-                                        }
+                                        ToDoTaskEntity(
+                                            id = task.id,
+                                            title = currentTitle,
+                                            description = currentDescription,
+                                            isFavorite = false,
+                                            isCompleted = false,
+                                        )
                                     )
                                 )
                             } else {
                                 viewModel.setAction(
                                     action = TaskAction.Add(
-                                        ToDoTask().apply {
-                                            title = currentTitle
-                                            description = currentDescription
-                                        }
+                                        ToDoTaskEntity(
+                                            id = task?.id ?: 0,
+                                            title = currentTitle,
+                                            description = currentDescription,
+                                            isFavorite = false,
+                                            isCompleted = false,
+                                        )
                                     )
                                 )
                             }
