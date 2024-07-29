@@ -1,16 +1,14 @@
-package data.local
+package database
 
 import androidx.room.Database
 import androidx.room.RoomDatabase
+import database.dao.ToDoDao
 import domain.model.ToDoTaskEntity
 
-@Database(entities = [ToDoTaskEntity::class], version = 1)
-abstract class ToDoDatabase : RoomDatabase(), DB {
+@Database(entities = [ToDoTaskEntity::class], version = 2)
+abstract class ToDoDatabase : RoomDatabase() {
     abstract fun toDoDao(): ToDoDao
 
-    override fun clearAllTables() {
-        super.clearAllTables()
-    }
 }
 
 // FIXME: Added a hack to resolve below issue:

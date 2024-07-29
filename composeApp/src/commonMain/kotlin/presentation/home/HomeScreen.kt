@@ -42,7 +42,7 @@ import presentation.components.ErrorScreen
 import presentation.components.LoadingScreen
 import presentation.components.TaskView
 
-class HomeScreen() : Screen {
+class HomeScreen : Screen {
     @OptIn(ExperimentalMaterial3Api::class)
     @Composable
     override fun Content() {
@@ -50,10 +50,6 @@ class HomeScreen() : Screen {
         val viewModel = getScreenModel<HomeViewModel>()
         val activeTasks by viewModel.activeTasks
         val completedTasks by viewModel.completedTasks
-
-        LaunchedEffect(Unit) {
-            //viewModel.initDao(toDoDatabase.toDoDao())
-        }
 
         Scaffold(
             topBar = {

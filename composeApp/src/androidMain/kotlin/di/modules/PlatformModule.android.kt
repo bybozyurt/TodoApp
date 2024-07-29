@@ -1,7 +1,7 @@
-package di.module
+package di.modules
 
-import data.local.ToDoDatabase
-import getDatabaseBuilderAndroid
+import database.ToDoDatabase
+import database.getDatabaseBuilderAndroid
 import org.koin.dsl.module
 
 actual val platformModule = module {

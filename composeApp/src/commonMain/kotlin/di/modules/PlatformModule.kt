@@ -1,4 +1,4 @@
-package di.module
+package di.modules
 
 import org.koin.core.module.Module
 

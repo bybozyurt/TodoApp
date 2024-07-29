@@ -1,8 +1,8 @@
+package database
+
 import android.content.Context
 import androidx.room.Room
 import androidx.sqlite.driver.bundled.BundledSQLiteDriver
-import data.local.ToDoDatabase
-import data.local.dbFileName
 
 fun getDatabaseBuilderAndroid(ctx: Context): ToDoDatabase {
     val appContext = ctx.applicationContext

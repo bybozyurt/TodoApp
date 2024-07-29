@@ -1,6 +1,6 @@
-package module
+package di.modules
 
-import data.local.ToDoDatabase
+import database.ToDoDatabase
 import getDatabaseBuilderIos
 import org.koin.dsl.module
 

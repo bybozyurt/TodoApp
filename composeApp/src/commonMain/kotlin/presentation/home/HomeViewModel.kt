@@ -4,13 +4,10 @@ import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import data.local.ToDoDao
 import domain.RequestState
 import domain.TaskAction
 import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
@@ -30,20 +27,17 @@ class HomeViewModel(
     init {
         _activeTasks.value = RequestState.Loading
         _completedTasks.value = RequestState.Loading
-        screenModelScope.launch(Dispatchers.Main) {
+        screenModelScope.launch {
             delay(500)
         }
-        screenModelScope.launch(Dispatchers.Main) {
+        screenModelScope.launch {
             delay(500)
-            repository.getAllTasks().collectLatest {
+            repository.getAllTasks()?.collectLatest {
                 _completedTasks.value = it
             }
         }
     }
 
-    fun initDao(dao: ToDoDao) {
-        repository.initDao(dao)
-    }
 
     fun setAction(action: TaskAction) {
         when (action) {
@@ -63,7 +57,7 @@ class HomeViewModel(
     }
 
     private fun deleteTask(task: ToDoTaskEntity) {
-        screenModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch {
             repository.deleteTask(task)
         }
     }
