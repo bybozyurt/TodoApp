@@ -1,4 +1,4 @@
-package presentation.task
+package presentation.screens.task
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope

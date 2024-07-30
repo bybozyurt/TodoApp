@@ -67,6 +67,9 @@ kotlin {
 
             implementation(libs.kotlinx.serialization.json)
 
+            //navigation
+            implementation(libs.androidx.navigation.compose)
+
             // required by koin
             implementation("co.touchlab:stately-common:2.0.5")
 
@@ -119,16 +122,10 @@ room {
 }
 
 dependencies {
+
+    implementation(libs.androidx.navigation.runtime.ktx)
     // Room
     add("kspCommonMainMetadata", libs.room.compiler)
-
-    /*
-    add("kspAndroid", libs.room.compiler)
-    add("kspIosSimulatorArm64", libs.room.compiler)
-    add("kspIosX64", libs.room.compiler)
-    add("kspIosArm64", libs.room.compiler)
-
-     */
 }
 
 tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {

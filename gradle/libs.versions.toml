@@ -24,6 +24,8 @@ room = "2.7.0-alpha01"
 ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-SNAPSHOT"
 kotlinx-serialization = "1.6.3"
+androidx-navigation = "2.7.0-alpha06"
+navigationRuntimeKtx = "2.7.7"
 
 [libraries]
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -55,7 +57,8 @@ room-runtime-android = { group = "androidx.room", name = "room-runtime-android",
 room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "room" }
 sqlite-bundled = { module= "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
-
+androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
+androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

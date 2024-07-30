@@ -1,4 +1,4 @@
-package presentation.home
+package presentation.screens.home
 
 import androidx.compose.runtime.MutableState
 import androidx.compose.runtime.mutableStateOf
