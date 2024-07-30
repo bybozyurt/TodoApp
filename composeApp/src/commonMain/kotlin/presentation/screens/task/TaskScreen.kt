@@ -1,9 +1,12 @@
 package presentation.screens.task
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.koin.getScreenModel
@@ -20,11 +23,16 @@ class TaskScreen : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
 
-        Text(
-            modifier = Modifier.clickable {
-                navigator.pop()
-            },
-            text = "Task Screen",
-        )
+        Scaffold {
+            Text(
+                modifier = Modifier
+                    .padding(it)
+                    .clickable {
+                    navigator.pop()
+                },
+                text = "Task Screen",
+                color = Color.Green
+            )
+        }
     }
 }
