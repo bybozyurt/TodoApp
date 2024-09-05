@@ -4,12 +4,14 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import domain.TaskAction
 import domain.model.ToDoTaskEntity
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.IO
+import domain.usecase.AddTaskUseCase
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 
 class TaskViewModel(
-): ScreenModel {
+    private val addTaskUseCase: AddTaskUseCase,
+    private val ioDispatcher: CoroutineDispatcher,
+) : ScreenModel {
 
     fun setAction(action: TaskAction) {
         when (action) {
@@ -28,13 +30,13 @@ class TaskViewModel(
     }
 
     private fun addTask(task: ToDoTaskEntity) {
-        screenModelScope.launch(Dispatchers.IO) {
-            //repository.addTask(task)
+        screenModelScope.launch(ioDispatcher) {
+            addTask(task)
         }
     }
 
     private fun updateTask(task: ToDoTaskEntity) {
-        screenModelScope.launch(Dispatchers.IO) {
+        screenModelScope.launch(ioDispatcher) {
             //repository.updateTask(task)
         }
     }
