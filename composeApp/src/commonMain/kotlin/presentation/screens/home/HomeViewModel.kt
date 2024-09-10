@@ -5,7 +5,6 @@ import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import domain.RequestState
-import domain.TaskAction
 import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
 import kotlinx.coroutines.delay
@@ -32,29 +31,12 @@ class HomeViewModel(
         }
         screenModelScope.launch {
             delay(500)
-            repository.getAllTasks()?.collectLatest {
+            repository.getAllTasks().collectLatest {
                 _completedTasks.value = it
             }
         }
     }
-
-
-    fun setAction(action: TaskAction) {
-        when (action) {
-            is TaskAction.Delete -> {
-                deleteTask(action.task)
-            }
-
-            is TaskAction.SetCompleted -> {
-
-            }
-
-            is TaskAction.SetFavorite -> {
-            }
-
-            else -> {}
-        }
-    }
+    
 
     private fun deleteTask(task: ToDoTaskEntity) {
         screenModelScope.launch {

@@ -2,11 +2,11 @@
   "formatVersion": 1,
   "database": {
     "version": 2,
-    "identityHash": "dea47e5037fb1fe8ac2c41543cc335a2",
+    "identityHash": "7b4564d8e056436c1cd0b2250514fca7",
     "entities": [
       {
         "tableName": "ToDoTaskEntity",
-        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `isFavorite` INTEGER NOT NULL, `isCompleted` INTEGER NOT NULL)",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER PRIMARY KEY AUTOINCREMENT NOT NULL, `title` TEXT NOT NULL, `description` TEXT NOT NULL, `isCompleted` INTEGER NOT NULL)",
         "fields": [
           {
             "fieldPath": "id",
@@ -27,12 +27,6 @@
             "notNull": true
           },
           {
-            "fieldPath": "isFavorite",
-            "columnName": "isFavorite",
-            "affinity": "INTEGER",
-            "notNull": true
-          },
-          {
             "fieldPath": "isCompleted",
             "columnName": "isCompleted",
             "affinity": "INTEGER",
@@ -49,7 +43,7 @@
     ],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'dea47e5037fb1fe8ac2c41543cc335a2')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '7b4564d8e056436c1cd0b2250514fca7')"
     ]
   }
 }
