@@ -3,6 +3,7 @@ package presentation.screens.task
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import domain.model.ToDoTaskEntity
+import domain.repository.ToDoRepository
 import domain.usecase.AddTaskUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -11,6 +12,7 @@ import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
 
 class TaskViewModel(
+    private val repository: ToDoRepository,
     private val addTaskUseCase: AddTaskUseCase,
     private val ioDispatcher: CoroutineDispatcher,
 ) : ScreenModel {
@@ -20,6 +22,19 @@ class TaskViewModel(
 
     fun updateIsTaskAdded(isAdded: Boolean) {
         _uiState.update { it.copy(isTaskAdded = isAdded) }
+    }
+
+    fun initTask(id: Long) {
+        screenModelScope.launch(ioDispatcher) {
+            val task = repository.getTaskById(id)
+            _uiState.update {
+                it.copy(
+                    title = task?.title.orEmpty(),
+                    description = task?.description.orEmpty(),
+                    isCompleted = task?.isCompleted == true,
+                )
+            }
+        }
     }
 
     fun onEvent(event: TaskScreenEvent) {
@@ -45,6 +60,17 @@ class TaskViewModel(
                     )
                 )
             }
+
+            is TaskScreenEvent.UpdateTaskScreen -> {
+                addTask(
+                    ToDoTaskEntity(
+                        id = event.id,
+                        title = _uiState.value.title,
+                        description = _uiState.value.description,
+                        isCompleted = _uiState.value.isCompleted,
+                    )
+                )
+            }
         }
     }
 
@@ -57,7 +83,7 @@ class TaskViewModel(
 
     private fun updateTask(task: ToDoTaskEntity) {
         screenModelScope.launch(ioDispatcher) {
-            //repository.updateTask(task)
+            repository.updateTask(task)
         }
     }
 }

@@ -7,5 +7,5 @@ import presentation.screens.task.TaskViewModel
 
 val viewModelsModule = module {
     factory { HomeViewModel(get(), get(named(Dispatcher.IO))) }
-    factory { TaskViewModel(get(), get(named(Dispatcher.IO))) }
+    factory { TaskViewModel(get(), get(), get(named(Dispatcher.IO))) }
 }

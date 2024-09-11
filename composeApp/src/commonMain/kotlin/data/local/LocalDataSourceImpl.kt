@@ -11,16 +11,16 @@ class LocalDataSourceImpl(
     private val db: ToDoDatabase,
     private val externalScope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher,
-): LocalDataSource {
+) : LocalDataSource {
 
     override fun getAllTasks(): Flow<List<ToDoTaskEntity>> {
         return db.toDoDao().getAllTasks()
     }
 
     override suspend fun addTask(task: ToDoTaskEntity) {
-      externalScope.launch(dispatcher) {
-          db.toDoDao().addTask(task)
-      }
+        externalScope.launch(dispatcher) {
+            db.toDoDao().addTask(task)
+        }
     }
 
     override suspend fun updateTask(task: ToDoTaskEntity) {
@@ -33,5 +33,9 @@ class LocalDataSourceImpl(
         externalScope.launch(dispatcher) {
             db.toDoDao().deleteTask(task)
         }
+    }
+
+    override suspend fun getTaskById(id: Long): ToDoTaskEntity? {
+        return db.toDoDao().getTaskById(id)
     }
 }

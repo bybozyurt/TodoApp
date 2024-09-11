@@ -23,5 +23,8 @@ interface ToDoDao {
 
     @Delete
     suspend fun deleteTask(task: ToDoTaskEntity)
+
+    @Query("SELECT * FROM ToDoTaskEntity WHERE id = :id")
+    suspend fun getTaskById(id: Long): ToDoTaskEntity?
 }
 

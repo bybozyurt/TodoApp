@@ -2,6 +2,7 @@ package presentation.screens.home
 
 import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
@@ -79,7 +80,12 @@ class HomeScreen : Screen {
                                 modifier = Modifier
                                     .animateItemPlacement(),
                                 task = task,
-                                onEvent = viewModel::onEvent
+                                onEvent = lambda@{ event ->
+                                    if (event is HomeScreenEvent.OnTaskClick) {
+                                        navigator.push(TaskScreen(id = event.id))
+                                        return@lambda
+                                    }
+                                }
                             )
                         }
                     }
@@ -113,7 +119,10 @@ private fun TaskItemView(
     val textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
 
     Row(
-        modifier = modifier,
+        modifier = modifier
+            .clickable {
+                onEvent.invoke(HomeScreenEvent.OnTaskClick(task.id))
+            },
         verticalAlignment = Alignment.CenterVertically
     ) {
         Checkbox(
@@ -137,7 +146,6 @@ private fun TaskItemView(
             overflow = TextOverflow.Ellipsis,
         )
 
-        val deleteIcon = Icons.Filled.Delete
         AppIconButton(
             imageVector = Icons.Default.Delete,
             onClick = {

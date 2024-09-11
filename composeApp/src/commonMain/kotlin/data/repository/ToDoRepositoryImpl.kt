@@ -28,4 +28,8 @@ class ToDoRepositoryImpl(
     override suspend fun deleteTask(task: ToDoTaskEntity) {
         localDataSource.deleteTask(task)
     }
+
+    override suspend fun getTaskById(id: Long): ToDoTaskEntity? {
+        return localDataSource.getTaskById(id)
+    }
 }

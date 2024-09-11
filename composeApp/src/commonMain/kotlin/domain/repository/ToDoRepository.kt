@@ -14,4 +14,6 @@ interface ToDoRepository {
 
     suspend fun deleteTask(task: ToDoTaskEntity)
 
+    suspend fun getTaskById(id: Long): ToDoTaskEntity?
+
 }

@@ -27,7 +27,7 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import common.onTaskEvent
 import kotlin.random.Random
 
-data class TaskScreen(val id: String = "") : Screen {
+data class TaskScreen(val id: Long = -1L) : Screen {
 
     override val key: ScreenKey =
         super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
@@ -49,6 +49,9 @@ data class TaskScreen(val id: String = "") : Screen {
                 navigator.pop()
                 viewModel.updateIsTaskAdded(false)
             }
+        }
+        LaunchedEffect(Unit) {
+            viewModel.initTask(id)
         }
     }
 }
