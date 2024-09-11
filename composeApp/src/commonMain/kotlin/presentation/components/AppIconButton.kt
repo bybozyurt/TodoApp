@@ -13,13 +13,9 @@ fun AppIconButton(
     imageVector: ImageVector,
     contentDescription: String = "",
     enabled: Boolean = true,
+    tintColor: Color,
     onClick: onClick,
 ) {
-    val tintColor = if (enabled) {
-        Color.Green
-    } else {
-        Color.Gray
-    }
     IconButton(
         modifier = modifier,
         onClick = onClick,

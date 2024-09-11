@@ -11,6 +11,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
@@ -21,7 +22,7 @@ import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import common.onEvent
+import common.onTaskEvent
 import kotlin.random.Random
 
 data class TaskScreen(val id: String = "") : Screen {
@@ -38,10 +39,14 @@ data class TaskScreen(val id: String = "") : Screen {
             TaskView(
                 modifier = Modifier.padding(paddingValues),
                 state = uiState,
-                onEvent = {
-                    viewModel.onEvent(it)
-                }
+                onTaskEvent = viewModel::onEvent
             )
+        }
+        LaunchedEffect(uiState.isTaskAdded) {
+            if (uiState.isTaskAdded) {
+                navigator.pop()
+                viewModel.updateIsTaskAdded(false)
+            }
         }
     }
 }
@@ -50,30 +55,27 @@ data class TaskScreen(val id: String = "") : Screen {
 fun TaskView(
     modifier: Modifier,
     state: TaskScreenUiState,
-    onEvent: onEvent,
+    onTaskEvent: onTaskEvent,
 ) {
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        // Title Input
         OutlinedTextField(
             value = state.title,
             onValueChange = {
-                onEvent.invoke(TaskEvent.UpdateTitle(it))
+                onTaskEvent.invoke(TaskScreenEvent.UpdateTitle(it))
             },
             label = { Text(text = "Title") },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
         )
-
-        // Description Input
         OutlinedTextField(
             value = state.description,
             onValueChange = {
-                onEvent.invoke(TaskEvent.UpdateDescription(it))
+                onTaskEvent.invoke(TaskScreenEvent.UpdateDescription(it))
             },
             label = { Text(text = "Description") },
             modifier = Modifier
@@ -81,7 +83,6 @@ fun TaskView(
                 .padding(bottom = 8.dp)
         )
 
-        // Completed Checkbox
         Row(
             verticalAlignment = Alignment.CenterVertically,
             modifier = Modifier.padding(bottom = 16.dp)
@@ -89,7 +90,7 @@ fun TaskView(
             Checkbox(
                 checked = state.isCompleted,
                 onCheckedChange = {
-                    onEvent.invoke(TaskEvent.UpdateCompletedStatus(it))
+                    onTaskEvent.invoke(TaskScreenEvent.UpdateCompletedStatus(it))
                 }
             )
             Text(
@@ -98,10 +99,9 @@ fun TaskView(
             )
         }
 
-        // Save Button
         Button(
             onClick = {
-                onEvent.invoke(TaskEvent.SaveTask)
+                onTaskEvent.invoke(TaskScreenEvent.SaveTaskScreen)
             },
             modifier = Modifier.align(Alignment.End)
         ) {

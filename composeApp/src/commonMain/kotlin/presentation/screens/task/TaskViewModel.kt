@@ -18,30 +18,41 @@ class TaskViewModel(
     private val _uiState = MutableStateFlow(TaskScreenUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun onEvent(event: TaskEvent) {
+    fun updateIsTaskAdded(isAdded: Boolean) {
+        _uiState.update { it.copy(isTaskAdded = isAdded) }
+    }
+
+    fun onEvent(event: TaskScreenEvent) {
         when (event) {
-            is TaskEvent.UpdateTitle -> {
+            is TaskScreenEvent.UpdateTitle -> {
                 _uiState.update { it.copy(title = event.title) }
             }
 
-            is TaskEvent.UpdateDescription -> {
+            is TaskScreenEvent.UpdateDescription -> {
                 _uiState.update { it.copy(description = event.description) }
             }
 
-            is TaskEvent.UpdateCompletedStatus -> {
+            is TaskScreenEvent.UpdateCompletedStatus -> {
                 _uiState.update { it.copy(isCompleted = event.isCompleted) }
             }
 
-            is TaskEvent.SaveTask -> {
-
+            is TaskScreenEvent.SaveTaskScreen -> {
+                addTask(
+                    ToDoTaskEntity(
+                        title = _uiState.value.title,
+                        description = _uiState.value.description,
+                        isCompleted = _uiState.value.isCompleted,
+                    )
+                )
             }
         }
     }
 
     private fun addTask(task: ToDoTaskEntity) {
         screenModelScope.launch(ioDispatcher) {
-            addTask(task)
+            addTaskUseCase.invoke(task)
         }
+        updateIsTaskAdded(true)
     }
 
     private fun updateTask(task: ToDoTaskEntity) {

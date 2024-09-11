@@ -1,46 +1,49 @@
 package presentation.screens.home
 
-import androidx.compose.runtime.MutableState
-import androidx.compose.runtime.mutableStateOf
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import domain.RequestState
 import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.collectLatest
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.flow.SharingStarted
+import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
-
-typealias MutableTasks = MutableState<RequestState<List<ToDoTaskEntity>>>
-typealias Tasks = MutableState<RequestState<List<ToDoTaskEntity>>>
 
 class HomeViewModel(
     private val repository: ToDoRepository,
+    private val ioDispatcher: CoroutineDispatcher,
 ) : ScreenModel {
-    private var _activeTasks: MutableTasks = mutableStateOf(RequestState.Idle)
-    val activeTasks: Tasks = _activeTasks
 
-    private var _completedTasks: MutableTasks = mutableStateOf(RequestState.Idle)
-    val completedTasks: Tasks = _completedTasks
-
-    init {
-        _activeTasks.value = RequestState.Loading
-        _completedTasks.value = RequestState.Loading
-        screenModelScope.launch {
-            delay(500)
+    val getTasks = repository.getAllTasks()
+        .map { state ->
+            state.getSuccessData().sortedByDescending { it.isCompleted }
         }
-        screenModelScope.launch {
-            delay(500)
-            repository.getAllTasks().collectLatest {
-                _completedTasks.value = it
-            }
+        .stateIn(
+            scope = screenModelScope,
+            started = SharingStarted.WhileSubscribed(5000),
+            initialValue = null
+        )
+
+    fun onEvent(event: HomeScreenEvent) {
+        if (event is HomeScreenEvent.OnCheckedChange) {
+            updateTask(event.task)
+        }
+
+        if (event is HomeScreenEvent.OnDeleteTask) {
+            deleteTask(event.task)
         }
     }
-    
 
     private fun deleteTask(task: ToDoTaskEntity) {
-        screenModelScope.launch {
+        screenModelScope.launch(ioDispatcher) {
             repository.deleteTask(task)
+        }
+    }
+
+    private fun updateTask(task: ToDoTaskEntity) {
+        screenModelScope.launch(ioDispatcher) {
+            repository.updateTask(task)
         }
     }
 }

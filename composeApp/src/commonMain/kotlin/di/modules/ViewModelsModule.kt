@@ -6,6 +6,6 @@ import presentation.screens.home.HomeViewModel
 import presentation.screens.task.TaskViewModel
 
 val viewModelsModule = module {
-    factory { HomeViewModel(get()) }
+    factory { HomeViewModel(get(), get(named(Dispatcher.IO))) }
     factory { TaskViewModel(get(), get(named(Dispatcher.IO))) }
 }
