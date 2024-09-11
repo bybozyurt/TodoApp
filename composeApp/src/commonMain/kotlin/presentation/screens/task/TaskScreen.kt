@@ -13,7 +13,9 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
+import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -57,6 +59,11 @@ fun TaskView(
     state: TaskScreenUiState,
     onTaskEvent: onTaskEvent,
 ) {
+    val isButtonEnabled by remember(state.title) {
+        derivedStateOf {
+            state.title.isNotEmpty()
+        }
+    }
     Column(
         modifier = modifier
             .fillMaxSize()
@@ -103,7 +110,8 @@ fun TaskView(
             onClick = {
                 onTaskEvent.invoke(TaskScreenEvent.SaveTaskScreen)
             },
-            modifier = Modifier.align(Alignment.End)
+            modifier = Modifier.align(Alignment.End),
+            enabled = isButtonEnabled
         ) {
             Text(text = "Save Task")
         }
