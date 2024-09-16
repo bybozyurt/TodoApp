@@ -54,16 +54,6 @@ class TaskViewModel(
             is TaskScreenEvent.SaveTaskScreen -> {
                 addTask(
                     ToDoTaskEntity(
-                        title = _uiState.value.title,
-                        description = _uiState.value.description,
-                        isCompleted = _uiState.value.isCompleted,
-                    )
-                )
-            }
-
-            is TaskScreenEvent.UpdateTaskScreen -> {
-                addTask(
-                    ToDoTaskEntity(
                         id = event.id,
                         title = _uiState.value.title,
                         description = _uiState.value.description,
@@ -79,11 +69,5 @@ class TaskViewModel(
             addTaskUseCase.invoke(task)
         }
         updateIsTaskAdded(true)
-    }
-
-    private fun updateTask(task: ToDoTaskEntity) {
-        screenModelScope.launch(ioDispatcher) {
-            repository.updateTask(task)
-        }
     }
 }

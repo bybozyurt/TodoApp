@@ -4,6 +4,7 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
+import domain.usecase.AddTaskUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
@@ -12,6 +13,7 @@ import kotlinx.coroutines.launch
 class HomeViewModel(
     private val repository: ToDoRepository,
     private val ioDispatcher: CoroutineDispatcher,
+    private val addTaskUseCase: AddTaskUseCase,
 ) : ScreenModel {
 
     val getTasks = repository.getAllTasks()
@@ -23,11 +25,13 @@ class HomeViewModel(
 
     fun onEvent(event: HomeScreenEvent) {
         if (event is HomeScreenEvent.OnCheckedChange) {
-            updateTask(event.task)
+            addTask(event.task)
+            return
         }
 
         if (event is HomeScreenEvent.OnDeleteTask) {
             deleteTask(event.task)
+            return
         }
     }
 
@@ -37,9 +41,9 @@ class HomeViewModel(
         }
     }
 
-    private fun updateTask(task: ToDoTaskEntity) {
+    private fun addTask(task: ToDoTaskEntity) {
         screenModelScope.launch(ioDispatcher) {
-            repository.updateTask(task)
+            addTaskUseCase.invoke(task)
         }
     }
 }

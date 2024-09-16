@@ -16,7 +16,7 @@ interface ToDoDao {
     fun getAllTasks(): Flow<List<ToDoTaskEntity>>
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    suspend fun addTask(task: ToDoTaskEntity)
+    suspend fun addTask(task: ToDoTaskEntity): Long
 
     @Update
     suspend fun updateTask(task: ToDoTaskEntity)

@@ -30,6 +30,7 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import common.Constant
+import common.onClick
 import common.onTaskEvent
 import presentation.components.AppIconButton
 import kotlin.random.Random
@@ -46,13 +47,16 @@ data class TaskScreen(val id: Long = Constant.INVALID_TASK_ID) : Screen {
         val uiState by viewModel.uiState.collectAsState()
         Scaffold(
             topBar = {
-                TopBar(id.getTitleByTask())
+                TopBar(id.getTitleByTask()) {
+                    navigator.pop()
+                }
             }
         ) { paddingValues ->
             TaskView(
                 modifier = Modifier.padding(paddingValues),
                 state = uiState,
-                onTaskEvent = viewModel::onEvent
+                onTaskEvent = viewModel::onEvent,
+                taskId = id,
             )
         }
         LaunchedEffect(uiState.isTaskAdded) {
@@ -72,6 +76,7 @@ fun TaskView(
     modifier: Modifier,
     state: TaskScreenUiState,
     onTaskEvent: onTaskEvent,
+    taskId: Long,
 ) {
     val isButtonEnabled by remember(state.title) {
         derivedStateOf {
@@ -122,7 +127,7 @@ fun TaskView(
 
         Button(
             onClick = {
-                onTaskEvent.invoke(TaskScreenEvent.SaveTaskScreen)
+                onTaskEvent.invoke(TaskScreenEvent.SaveTaskScreen(taskId))
             },
             modifier = Modifier.align(Alignment.End),
             enabled = isButtonEnabled
@@ -134,7 +139,7 @@ fun TaskView(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar(title: String) {
+private fun TopBar(title: String, onClick: onClick) {
     TopAppBar(
         title = {
             Text(title)
@@ -142,7 +147,7 @@ private fun TopBar(title: String) {
         navigationIcon = {
             AppIconButton(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
-                onClick = {},
+                onClick = onClick,
                 tintColor = Color.Black
             )
         }

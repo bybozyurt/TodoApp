@@ -85,6 +85,7 @@ class HomeScreen : Screen {
                                         navigator.push(TaskScreen(id = event.id))
                                         return@lambda
                                     }
+                                    viewModel.onEvent(event)
                                 }
                             )
                         }
