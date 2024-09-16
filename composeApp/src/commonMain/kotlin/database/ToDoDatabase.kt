@@ -19,5 +19,3 @@ abstract class ToDoDatabase : RoomDatabase(), DB {
 interface DB {
     fun clearAllTables() {}
 }
-
-internal const val dbFileName = "todo.db"

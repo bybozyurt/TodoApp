@@ -1,7 +1,6 @@
 package data.repository
 
 import data.local.LocalDataSource
-import domain.RequestState
 import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
 import kotlinx.coroutines.flow.Flow
@@ -11,9 +10,9 @@ class ToDoRepositoryImpl(
     private val localDataSource: LocalDataSource,
 ) : ToDoRepository {
 
-    override fun getAllTasks(): Flow<RequestState<List<ToDoTaskEntity>>> {
-        return localDataSource.getAllTasks().map { tasks ->
-            RequestState.Success(tasks.map { it })
+    override fun getAllTasks(): Flow<List<ToDoTaskEntity>> {
+        return localDataSource.getAllTasks().map { state ->
+            state.sortedByDescending { it.isCompleted }
         }
     }
 

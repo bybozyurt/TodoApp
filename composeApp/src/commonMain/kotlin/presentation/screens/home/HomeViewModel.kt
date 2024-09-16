@@ -6,7 +6,6 @@ import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
-import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 
@@ -16,9 +15,6 @@ class HomeViewModel(
 ) : ScreenModel {
 
     val getTasks = repository.getAllTasks()
-        .map { state ->
-            state.getSuccessData().sortedByDescending { it.isCompleted }
-        }
         .stateIn(
             scope = screenModelScope,
             started = SharingStarted.WhileSubscribed(5000),

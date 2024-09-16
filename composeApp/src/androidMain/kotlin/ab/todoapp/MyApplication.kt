@@ -13,9 +13,4 @@ class MyApplication : Application() {
             androidContext(this@MyApplication)
         }
     }
-
-    companion object {
-        lateinit var instance: MyApplication
-            private set
-    }
 }

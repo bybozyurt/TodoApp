@@ -5,11 +5,15 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
+import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
+import androidx.compose.material3.TopAppBar
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -18,16 +22,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
+import common.Constant
 import common.onTaskEvent
+import presentation.components.AppIconButton
 import kotlin.random.Random
 
-data class TaskScreen(val id: Long = -1L) : Screen {
+data class TaskScreen(val id: Long = Constant.INVALID_TASK_ID) : Screen {
 
     override val key: ScreenKey =
         super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
@@ -37,7 +44,11 @@ data class TaskScreen(val id: Long = -1L) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
         val uiState by viewModel.uiState.collectAsState()
-        Scaffold { paddingValues ->
+        Scaffold(
+            topBar = {
+                TopBar(id.getTitleByTask())
+            }
+        ) { paddingValues ->
             TaskView(
                 modifier = Modifier.padding(paddingValues),
                 state = uiState,
@@ -118,5 +129,30 @@ fun TaskView(
         ) {
             Text(text = "Save Task")
         }
+    }
+}
+
+@OptIn(ExperimentalMaterial3Api::class)
+@Composable
+private fun TopBar(title: String) {
+    TopAppBar(
+        title = {
+            Text(title)
+        },
+        navigationIcon = {
+            AppIconButton(
+                imageVector = Icons.AutoMirrored.Filled.ArrowBack,
+                onClick = {},
+                tintColor = Color.Black
+            )
+        }
+    )
+}
+
+private fun Long?.getTitleByTask(): String {
+    return if (this == Constant.INVALID_TASK_ID) {
+        "Add New Task"
+    } else {
+        "Update Your Task"
     }
 }
