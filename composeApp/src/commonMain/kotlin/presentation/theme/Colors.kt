@@ -5,114 +5,99 @@ import androidx.compose.material3.lightColorScheme
 import androidx.compose.ui.graphics.Color
 
 // LIGHT
-val GreenPrimaryLight = Color(0xff006e26)
-val OnGreenLight = Color(0xffffffff)
-val GreenContainerLight = Color(0xff6cff82)
-val OnGreenContainerLight = Color(0xff002106)
+val PrimaryLight = Color(0xff000000)
+val OnPrimaryLight = Color(0xffffffff)
+val PrimaryContainerLight = Color(0xffe0e0e0)
+val OnPrimaryContainerLight = Color(0xff000000)
 
-val GreenSecondaryLight = Color(0xff526350)
-val OnGreenSecondaryLight = OnGreenLight
-val GreenSecondaryContainerLight = Color(0xffd4e8d0)
-val OnGreenSecondaryContainerLight = Color(0xff101f10)
+val SecondaryLight = Color(0xff333333)
+val OnSecondaryLight = Color(0xffffffff)
+val SecondaryContainerLight = Color(0xffe0e0e0)
+val OnSecondaryContainerLight = Color(0xff000000)
 
-val GreenTertiaryLight = Color(0xff39656b)
-val OnGreenTertiaryLight = OnGreenLight
-val GreenTertiaryContainerLight = Color(0xffbcebf2)
-val OnGreenTertiaryContainerLight = Color(0xff001f23)
+val TertiaryLight = Color(0xff666666)
+val OnTertiaryLight = Color(0xffffffff)
+val TertiaryContainerLight = Color(0xfff5f5f5)
+val OnTertiaryContainerLight = Color(0xff000000)
 
-val ErrorLight = Color(0xffba1a1a)
+val ErrorLight = Color(0xffD32F2F)
 val OnErrorLight = Color(0xffffffff)
-val ErrorContainerLight = Color(0xffffdad6)
-val OnErrorContainerLight = Color(0xff410002)
+val ErrorContainerLight = Color(0xffFFCDD2)
+val OnErrorContainerLight = Color(0xffD32F2F)
 
-val BackgroundLight = Color(0xfffcfdf7)
-val OnBackgroundLight = Color(0xff1a1c19)
-val SurfaceLight = BackgroundLight
-val OnSurfaceLight = OnBackgroundLight
-val SurfaceVariantLight = Color(0xffdee5d9)
-val OnSurfaceVariantLight = Color(0xff424940)
+val BackgroundLight = Color(0xffffffff)
+val OnBackgroundLight = Color(0xff000000)
+val SurfaceLight = Color(0xfff5f5f5)
+val OnSurfaceLight = Color(0xff000000)
 
-val OutlineLight = Color(0xff72796f)
+val OutlineLight = Color(0xff8c8c8c)
+
 
 // DARK
-val GreenPrimaryDark = Color(0xff00e559)
-val OnGreenDark = Color(0xff003910)
-val GreenContainerDark = Color(0xff00531b)
-val OnGreenContainerDark = Color(0xff6cff82)
+val PrimaryDark = Color(0xffffffff)
+val OnPrimaryDark = Color(0xff000000)
+val PrimaryContainerDark = Color(0xff333333)
+val OnPrimaryContainerDark = Color(0xffffffff)
 
-val GreenSecondaryDark = Color(0xffb9ccb5)
-val OnGreenSecondaryDark = OnGreenDark
-val GreenSecondaryContainerDark = Color(0xff3a4b39)
-val OnGreenSecondaryContainerDark = Color(0xffd4e8d0)
+val SecondaryDark = Color(0xff666666)
+val OnSecondaryDark = Color(0xff000000)
+val SecondaryContainerDark = Color(0xff444444)
+val OnSecondaryContainerDark = Color(0xffffffff)
 
-val GreenTertiaryDark = Color(0xffa1ced5)
-val OnGreenTertiaryDark = Color(0xff00363c)
-val GreenTertiaryContainerDark = Color(0xff1f4d53)
-val OnGreenTertiaryContainerDark = Color(0xffbcebf2)
+val TertiaryDark = Color(0xff999999)
+val OnTertiaryDark = Color(0xff000000)
+val TertiaryContainerDark = Color(0xff555555)
+val OnTertiaryContainerDark = Color(0xffffffff)
 
-val ErrorDark = Color(0xffffb4ab)
-val OnErrorDark = Color(0xff690005)
-val ErrorContainerDark = Color(0xff93000a)
-val OnErrorContainerDark = Color(0xffffdad6)
+val ErrorDark = Color(0xffCF6679)
+val OnErrorDark = Color(0xff000000)
+val ErrorContainerDark = Color(0xffB00020)
+val OnErrorContainerDark = Color(0xffffffff)
 
-val BackgroundDark = Color(0xff1a1c19)
-val OnBackgroundDark = Color(0xffe2e3dd)
-val SurfaceDark = BackgroundDark
-val OnSurfaceDark = OnBackgroundDark
-val SurfaceVariantDark = Color(0xff424940)
-val OnSurfaceVariantDark = Color(0xffc2c9bd)
+val BackgroundDark = Color(0xff000000)
+val OnBackgroundDark = Color(0xffffffff)
+val SurfaceDark = Color(0xff121212)
+val OnSurfaceDark = Color(0xffffffff)
 
-val OutlineDark = Color(0xff72796f)
+val OutlineDark = Color(0xff999999)
 
-
-val DarkColorScheme = darkColorScheme(
-    primary = GreenPrimaryDark,
-    secondary = GreenSecondaryDark,
-    tertiary = GreenTertiaryDark,
-    onPrimary = OnGreenDark,
-    primaryContainer = GreenContainerDark,
-    onPrimaryContainer = OnGreenContainerDark,
-    onSecondary = OnGreenSecondaryDark,
-    secondaryContainer = GreenSecondaryContainerDark,
-    onSecondaryContainer = OnGreenSecondaryContainerDark,
-    onTertiary = OnGreenTertiaryDark,
-    onTertiaryContainer = OnGreenTertiaryContainerDark,
-    tertiaryContainer = GreenTertiaryContainerDark,
-    background = BackgroundDark,
-    onBackground = OnBackgroundDark,
-    surface = SurfaceDark,
-    onSurface = OnSurfaceDark,
-    surfaceVariant = SurfaceVariantDark,
-    onSurfaceVariant = OnSurfaceVariantDark,
-    error = ErrorDark,
-    onError = OnErrorDark,
-    errorContainer = ErrorContainerDark,
-    onErrorContainer = OnErrorContainerDark,
-    outline = OutlineDark,
-)
 
 val LightColorScheme = lightColorScheme(
-    primary = GreenPrimaryLight,
-    secondary = GreenSecondaryLight,
-    tertiary = GreenTertiaryLight,
-    onPrimary = OnGreenLight,
-    primaryContainer = GreenContainerLight,
-    onPrimaryContainer = OnGreenContainerLight,
-    onSecondary = OnGreenSecondaryLight,
-    secondaryContainer = GreenSecondaryContainerLight,
-    onSecondaryContainer = OnGreenSecondaryContainerLight,
-    onTertiary = OnGreenTertiaryLight,
-    onTertiaryContainer = OnGreenTertiaryContainerLight,
-    tertiaryContainer = GreenTertiaryContainerLight,
+    primary = PrimaryLight,
+    secondary = SecondaryLight,
+    tertiary = TertiaryLight,
+    onPrimary = OnPrimaryLight,
+    primaryContainer = PrimaryContainerLight,
+    onPrimaryContainer = OnPrimaryContainerLight,
+    onSecondary = OnSecondaryLight,
+    secondaryContainer = SecondaryContainerLight,
+    onSecondaryContainer = OnSecondaryContainerLight,
+    onTertiary = OnTertiaryLight,
+    onTertiaryContainer = OnTertiaryContainerLight,
+    tertiaryContainer = TertiaryContainerLight,
     background = BackgroundLight,
     onBackground = OnBackgroundLight,
     surface = SurfaceLight,
     onSurface = OnSurfaceLight,
-    surfaceVariant = SurfaceVariantLight,
-    onSurfaceVariant = OnSurfaceVariantLight,
-    error = ErrorLight,
-    onError = OnErrorLight,
-    errorContainer = ErrorContainerLight,
-    onErrorContainer = OnErrorContainerLight,
     outline = OutlineLight,
+)
+
+val DarkColorScheme = darkColorScheme(
+    primary = PrimaryDark,
+    secondary = SecondaryDark,
+    tertiary = TertiaryDark,
+    onPrimary = OnPrimaryDark,
+    primaryContainer = PrimaryContainerDark,
+    onPrimaryContainer = OnPrimaryContainerDark,
+    onSecondary = OnSecondaryDark,
+    secondaryContainer = SecondaryContainerDark,
+    onSecondaryContainer = OnSecondaryContainerDark,
+    onTertiary = OnTertiaryDark,
+    onTertiaryContainer = OnTertiaryContainerDark,
+    tertiaryContainer = TertiaryContainerDark,
+    background = BackgroundDark,
+    onBackground = OnBackgroundDark,
+    surface = SurfaceDark,
+    onSurface = OnSurfaceDark,
+    outline = OutlineDark,
 )

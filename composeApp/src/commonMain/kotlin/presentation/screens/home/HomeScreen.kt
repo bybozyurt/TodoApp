@@ -17,7 +17,7 @@ import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Checkbox
-import androidx.compose.material3.LocalTextStyle
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -25,11 +25,9 @@ import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.koin.getScreenModel
@@ -104,10 +102,10 @@ private fun FloatingButton(
         modifier = Modifier
             .padding(10.dp)
             .size(60.dp)
-            .background(Color.Red, CircleShape),
+            .background(MaterialTheme.colorScheme.primaryContainer, CircleShape),
         imageVector = Icons.Filled.Add,
         onClick = onClick,
-        tintColor = Color.Green,
+        tintColor = MaterialTheme.colorScheme.primary,
     )
 }
 
@@ -138,11 +136,10 @@ private fun TaskItemView(
                 .fillMaxWidth()
                 .weight(1f, false),
             text = task.title,
-            style = LocalTextStyle.current.copy(
+            style = MaterialTheme.typography.labelLarge.copy(
                 textDecoration = textDecoration,
-                fontSize = 16.sp
             ),
-            color = if (task.isCompleted) Color.Gray else Color.Black,
+            color = if (task.isCompleted) MaterialTheme.colorScheme.secondary else MaterialTheme.colorScheme.primary,
             maxLines = 2,
             overflow = TextOverflow.Ellipsis,
         )
@@ -152,7 +149,7 @@ private fun TaskItemView(
             onClick = {
                 onEvent.invoke(HomeScreenEvent.OnDeleteTask(task))
             },
-            tintColor = Color.Red,
+            tintColor = MaterialTheme.colorScheme.error,
         )
     }
 }

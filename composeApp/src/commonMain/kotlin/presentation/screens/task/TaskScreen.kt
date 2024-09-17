@@ -10,10 +10,12 @@ import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
+import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Scaffold
 import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
+import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.collectAsState
@@ -22,7 +24,6 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
@@ -102,20 +103,32 @@ fun TaskView(
             onValueChange = {
                 onTaskEvent.invoke(TaskScreenEvent.UpdateTitle(it))
             },
-            label = { Text(text = stringResource(Res.string.title)) },
+            label = {
+                Text(
+                    text = stringResource(Res.string.title),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
+                .padding(bottom = 8.dp),
+            textStyle = MaterialTheme.typography.labelLarge,
         )
         OutlinedTextField(
             value = state.description,
             onValueChange = {
                 onTaskEvent.invoke(TaskScreenEvent.UpdateDescription(it))
             },
-            label = { Text(text = stringResource(Res.string.description)) },
+            label = {
+                Text(
+                    text = stringResource(Res.string.description),
+                    style = MaterialTheme.typography.labelLarge
+                )
+            },
             modifier = Modifier
                 .fillMaxWidth()
-                .padding(bottom = 8.dp)
+                .padding(bottom = 8.dp),
+            textStyle = MaterialTheme.typography.labelLarge,
         )
 
         Row(
@@ -130,7 +143,8 @@ fun TaskView(
             )
             Text(
                 text = stringResource(Res.string.completed),
-                modifier = Modifier.padding(start = 8.dp)
+                modifier = Modifier.padding(start = 8.dp),
+                style = MaterialTheme.typography.bodySmall
             )
         }
 
@@ -141,7 +155,10 @@ fun TaskView(
             modifier = Modifier.align(Alignment.End),
             enabled = isButtonEnabled
         ) {
-            Text(text = stringResource(Res.string.save_task))
+            Text(
+                text = stringResource(Res.string.save_task),
+                style = MaterialTheme.typography.labelLarge
+            )
         }
     }
 }
@@ -157,9 +174,12 @@ private fun TopBar(title: String, onClick: onClick) {
             AppIconButton(
                 imageVector = Icons.AutoMirrored.Filled.ArrowBack,
                 onClick = onClick,
-                tintColor = Color.Black
+                tintColor = MaterialTheme.colorScheme.primary
             )
-        }
+        },
+        colors = TopAppBarDefaults.topAppBarColors(
+            containerColor = MaterialTheme.colorScheme.primaryContainer
+        )
     )
 }
 
