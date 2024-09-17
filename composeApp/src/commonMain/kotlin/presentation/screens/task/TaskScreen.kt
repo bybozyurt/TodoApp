@@ -32,6 +32,15 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import common.Constant
 import common.onClick
 import common.onTaskEvent
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.add_new_task
+import kotlinproject.composeapp.generated.resources.completed
+import kotlinproject.composeapp.generated.resources.description
+import kotlinproject.composeapp.generated.resources.save_task
+import kotlinproject.composeapp.generated.resources.title
+import kotlinproject.composeapp.generated.resources.update_task
+import org.jetbrains.compose.resources.StringResource
+import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIconButton
 import kotlin.random.Random
 
@@ -47,7 +56,7 @@ data class TaskScreen(val id: Long = Constant.INVALID_TASK_ID) : Screen {
         val uiState by viewModel.uiState.collectAsState()
         Scaffold(
             topBar = {
-                TopBar(id.getTitleByTask()) {
+                TopBar(stringResource(id.getStringResByTaskId())) {
                     navigator.pop()
                 }
             }
@@ -93,7 +102,7 @@ fun TaskView(
             onValueChange = {
                 onTaskEvent.invoke(TaskScreenEvent.UpdateTitle(it))
             },
-            label = { Text(text = "Title") },
+            label = { Text(text = stringResource(Res.string.title)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
@@ -103,7 +112,7 @@ fun TaskView(
             onValueChange = {
                 onTaskEvent.invoke(TaskScreenEvent.UpdateDescription(it))
             },
-            label = { Text(text = "Description") },
+            label = { Text(text = stringResource(Res.string.description)) },
             modifier = Modifier
                 .fillMaxWidth()
                 .padding(bottom = 8.dp)
@@ -120,7 +129,7 @@ fun TaskView(
                 }
             )
             Text(
-                text = "Completed",
+                text = stringResource(Res.string.completed),
                 modifier = Modifier.padding(start = 8.dp)
             )
         }
@@ -132,7 +141,7 @@ fun TaskView(
             modifier = Modifier.align(Alignment.End),
             enabled = isButtonEnabled
         ) {
-            Text(text = "Save Task")
+            Text(text = stringResource(Res.string.save_task))
         }
     }
 }
@@ -154,10 +163,10 @@ private fun TopBar(title: String, onClick: onClick) {
     )
 }
 
-private fun Long?.getTitleByTask(): String {
+private fun Long?.getStringResByTaskId(): StringResource {
     return if (this == Constant.INVALID_TASK_ID) {
-        "Add New Task"
+        Res.string.add_new_task
     } else {
-        "Update Your Task"
+        Res.string.update_task
     }
 }
