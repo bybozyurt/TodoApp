@@ -45,6 +45,7 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.room.runtime.android)
             implementation(libs.koin.android)
+            implementation(libs.androidx.core.splashscreen)
         }
         commonMain.dependencies {
             implementation(compose.runtime)
