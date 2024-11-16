@@ -1,41 +1,18 @@
 package presentation.screens.home
 
-import androidx.compose.foundation.ExperimentalFoundationApi
 import androidx.compose.foundation.background
-import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
-import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
-import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
-import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridItemSpan
-import androidx.compose.foundation.lazy.staggeredgrid.items
 import androidx.compose.foundation.shape.CircleShape
-import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Add
-import androidx.compose.material.icons.filled.Info
-import androidx.compose.material3.Card
-import androidx.compose.material3.CardDefaults
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Scaffold
-import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.collectAsState
 import androidx.compose.runtime.getValue
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.font.FontWeight
-import androidx.compose.ui.text.style.TextAlign
-import androidx.compose.ui.text.style.TextDecoration
-import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
@@ -43,15 +20,9 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import common.onClick
-import common.onHomeEvent
-import domain.model.ColorType.Companion.toComposeColor
-import domain.model.ToDoTaskEntity
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.add_new_note_info
-import kotlinproject.composeapp.generated.resources.no_notes_available
-import org.jetbrains.compose.resources.stringResource
-import presentation.components.AppIcon
 import presentation.components.AppIconButton
+import presentation.screens.home.ui.EmptyState
+import presentation.screens.home.ui.TaskList
 import presentation.screens.task.TaskScreen
 import kotlin.random.Random
 
@@ -60,7 +31,6 @@ class HomeScreen : Screen {
     override val key: ScreenKey =
         super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
 
-    @OptIn(ExperimentalFoundationApi::class)
     @Composable
     override fun Content() {
         val navigator = LocalNavigator.currentOrThrow
@@ -80,77 +50,12 @@ class HomeScreen : Screen {
                 EmptyState()
                 return@Scaffold
             }
-            LazyVerticalStaggeredGrid(
+            TaskList(
                 modifier = Modifier
                     .fillMaxSize()
                     .padding(paddingValues),
-                columns = StaggeredGridCells.Fixed(2),
-                horizontalArrangement = Arrangement.spacedBy(12.dp),
-                verticalItemSpacing = 12.dp,
-                contentPadding = PaddingValues(16.dp)
-            ) {
-                item(
-                    span = StaggeredGridItemSpan.FullLine
-                ) {
-                    Text(
-                        text = "All Notes", // Replace with your actual header title
-                        style = MaterialTheme.typography.bodyMedium,
-                        modifier = Modifier
-                            .fillMaxWidth()
-                            .padding(bottom = 12.dp) // Optional, for spacing below the header
-                    )
-                }
-                items(
-                    items = tasks!!,
-                    key = { it.id }
-                ) { task ->
-                    TaskItemView(
-                        modifier = Modifier
-                            .animateItemPlacement(),
-                        task = task,
-                        onEvent = lambda@{ event ->
-                            if (event is HomeScreenEvent.OnTaskClick) {
-                                navigator.push(TaskScreen(id = event.id))
-                                return@lambda
-                            }
-                            viewModel.onEvent(event)
-                        }
-                    )
-                }
-            }
-        }
-    }
-}
-
-@Composable
-fun EmptyState() {
-    Box(
-        modifier = Modifier
-            .fillMaxSize(),
-    ) {
-        Column(
-            modifier = Modifier
-                .align(Alignment.Center),
-            verticalArrangement = Arrangement.Center,
-            horizontalAlignment = Alignment.CenterHorizontally
-        ) {
-            AppIcon(
-                imageVector = Icons.Default.Info, // or use a custom drawable
-                modifier = Modifier.size(64.dp),
-                tintColor = Color.Gray
-            )
-            Spacer(modifier = Modifier.height(16.dp))
-            Text(
-                text = stringResource(Res.string.no_notes_available),
-                style = MaterialTheme.typography.bodyMedium,
-                color = Color.Gray,
-                textAlign = TextAlign.Center
-            )
-            Text(
-                text = stringResource(Res.string.add_new_note_info),
-                style = MaterialTheme.typography.bodySmall,
-                color = Color.Gray,
-                textAlign = TextAlign.Center
+                tasks = tasks,
+                viewModel = viewModel,
             )
         }
     }
@@ -170,48 +75,3 @@ private fun FloatingButton(
         tintColor = MaterialTheme.colorScheme.primary,
     )
 }
-
-@Composable
-private fun TaskItemView(
-    modifier: Modifier = Modifier,
-    task: ToDoTaskEntity,
-    onEvent: onHomeEvent
-) {
-    val textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
-
-    Card(
-        modifier = modifier,
-        shape = RoundedCornerShape(8.dp),
-        colors = CardDefaults.cardColors(
-            containerColor = task.colorType.toComposeColor().copy(
-                alpha = 0.8f
-            )
-        ),
-        onClick = {
-            onEvent.invoke(HomeScreenEvent.OnTaskClick(task.id))
-        }
-    ) {
-        Column(
-            modifier = Modifier
-                .padding(8.dp)
-        ) {
-            Text(
-                text = task.title,
-                style = MaterialTheme.typography.labelLarge,
-                fontWeight = FontWeight.Bold,
-                color = Color.White,
-                textDecoration = textDecoration,
-            )
-            Spacer(Modifier.height(12.dp))
-            Text(
-                text = task.description,
-                style = MaterialTheme.typography.labelMedium,
-                color = Color.White,
-                maxLines = 10,
-                overflow = TextOverflow.Ellipsis,
-                textDecoration = textDecoration,
-            )
-        }
-    }
-}
-
