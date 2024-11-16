@@ -9,4 +9,14 @@ data class ToDoTaskEntity(
     val title: String = "",
     val description: String = "",
     val isCompleted: Boolean = false,
+    val colorType: ColorType = ColorType.GREEN,
 )
+
+enum class ColorType {
+    GREEN,
+    YELLOW,
+    RED,
+    BLUE,
+    GRAY,
+    PURPLE,
+}

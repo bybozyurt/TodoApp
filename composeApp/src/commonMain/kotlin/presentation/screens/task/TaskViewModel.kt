@@ -32,6 +32,7 @@ class TaskViewModel(
                     title = task?.title.orEmpty(),
                     description = task?.description.orEmpty(),
                     isCompleted = task?.isCompleted == true,
+                    selectedColor = task?.colorType
                 )
             }
         }
@@ -51,6 +52,10 @@ class TaskViewModel(
                 _uiState.update { it.copy(isCompleted = event.isCompleted) }
             }
 
+            is TaskScreenEvent.UpdateTaskColor -> {
+                _uiState.update { it.copy(selectedColor = event.colorType) }
+            }
+
             is TaskScreenEvent.SaveTaskScreen -> {
                 addTask(
                     ToDoTaskEntity(
@@ -58,6 +63,7 @@ class TaskViewModel(
                         title = _uiState.value.title,
                         description = _uiState.value.description,
                         isCompleted = _uiState.value.isCompleted,
+                        colorType = _uiState.value.selectedColor!!,
                     )
                 )
             }

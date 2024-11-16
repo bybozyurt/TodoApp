@@ -43,6 +43,10 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import common.onClick
 import common.onHomeEvent
 import domain.model.ToDoTaskEntity
+import kotlinproject.composeapp.generated.resources.Res
+import kotlinproject.composeapp.generated.resources.add_new_note_info
+import kotlinproject.composeapp.generated.resources.no_notes_available
+import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIcon
 import presentation.components.AppIconButton
 import presentation.screens.task.TaskScreen
@@ -116,23 +120,20 @@ fun EmptyState() {
             verticalArrangement = Arrangement.Center,
             horizontalAlignment = Alignment.CenterHorizontally
         ) {
-            // Add an illustration or icon
             AppIcon(
                 imageVector = Icons.Default.Info, // or use a custom drawable
                 modifier = Modifier.size(64.dp),
                 tintColor = Color.Gray
             )
             Spacer(modifier = Modifier.height(16.dp))
-
-            // Message for empty state
             Text(
-                text = "No Tasks Available",
+                text = stringResource(Res.string.no_notes_available),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = "Add new tasks to get started!",
+                text = stringResource(Res.string.add_new_note_info),
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray,
                 textAlign = TextAlign.Center

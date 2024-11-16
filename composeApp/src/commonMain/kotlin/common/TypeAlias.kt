@@ -1,5 +1,6 @@
 package common
 
+import domain.model.ColorType
 import presentation.screens.home.HomeScreenEvent
 import presentation.screens.task.TaskScreenEvent
 
@@ -15,3 +16,5 @@ typealias onTaskEvent = (TaskScreenEvent) -> Unit
 
 //HomeScreenEVent
 typealias onHomeEvent = (HomeScreenEvent) -> Unit
+
+typealias onColorSelected = (ColorType) -> Unit

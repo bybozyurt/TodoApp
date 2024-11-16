@@ -1,12 +1,23 @@
 package presentation.screens.task
 
+import androidx.compose.foundation.background
+import androidx.compose.foundation.border
+import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.size
+import androidx.compose.foundation.lazy.LazyRow
+import androidx.compose.foundation.lazy.items
+import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
+import androidx.compose.material.icons.filled.Check
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -24,15 +35,19 @@ import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.draw.clip
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.core.screen.Screen
 import cafe.adriel.voyager.core.screen.ScreenKey
 import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import common.Constant
+import common.Constant.INVALID_TASK_ID
 import common.onClick
+import common.onColorSelected
 import common.onTaskEvent
+import domain.model.ColorType
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.add_new_task
 import kotlinproject.composeapp.generated.resources.completed
@@ -42,10 +57,11 @@ import kotlinproject.composeapp.generated.resources.title
 import kotlinproject.composeapp.generated.resources.update_task
 import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
+import presentation.components.AppIcon
 import presentation.components.AppIconButton
 import kotlin.random.Random
 
-data class TaskScreen(val id: Long = Constant.INVALID_TASK_ID) : Screen {
+data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
 
     override val key: ScreenKey =
         super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
@@ -76,7 +92,9 @@ data class TaskScreen(val id: Long = Constant.INVALID_TASK_ID) : Screen {
             }
         }
         LaunchedEffect(Unit) {
-            viewModel.initTask(id)
+            if (id != INVALID_TASK_ID) {
+                viewModel.initTask(id)
+            }
         }
     }
 }
@@ -126,14 +144,28 @@ fun TaskView(
                 )
             },
             modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
+                .fillMaxWidth(),
             textStyle = MaterialTheme.typography.labelLarge,
+            placeholder = {
+                Text(
+                    text = "Enter task description",
+                    style = MaterialTheme.typography.labelLarge,
+                )
+            },
+        )
+
+        ColorRow(
+            colors = state.colors,
+            selectedColor = state.selectedColor,
+            onColorSelected = {
+                onTaskEvent.invoke(TaskScreenEvent.UpdateTaskColor(it))
+            }
         )
 
         Row(
             verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier.padding(bottom = 16.dp)
+            modifier = Modifier
+                .padding(bottom = 16.dp)
         ) {
             Checkbox(
                 checked = state.isCompleted,
@@ -178,13 +210,62 @@ private fun TopBar(title: String, onClick: onClick) {
             )
         },
         colors = TopAppBarDefaults.topAppBarColors(
-            containerColor = MaterialTheme.colorScheme.primaryContainer
+            containerColor = Color.Transparent
         )
     )
 }
 
+@Composable
+private fun ColorRow(
+    colors: List<ColorType>,
+    selectedColor: ColorType?,
+    onColorSelected: onColorSelected,
+) {
+    LazyRow(
+        modifier = Modifier
+            .fillMaxWidth(),
+        horizontalArrangement = Arrangement.SpaceBetween,
+        contentPadding = PaddingValues(16.dp),
+    ) {
+        items(colors) { color ->
+            Box(
+                contentAlignment = Alignment.Center,
+                modifier = Modifier
+                    .size(40.dp)
+                    .clip(CircleShape)
+                    .background(color.toComposeColor())
+                    .border(
+                        width = 1.dp,
+                        color = if (color == selectedColor) Color.Black else Color.Gray,
+                        shape = CircleShape
+                    )
+                    .clickable { onColorSelected(color) }
+            ) {
+                if (color == selectedColor) {
+                    AppIcon(
+                        imageVector = Icons.Default.Check,
+                        tintColor = Color.White,
+                        modifier = Modifier.size(20.dp)
+                    )
+                }
+            }
+        }
+    }
+}
+
+private fun ColorType.toComposeColor(): Color {
+    return when (this) {
+        ColorType.GREEN -> Color.Green
+        ColorType.YELLOW -> Color.Yellow
+        ColorType.RED -> Color.Red
+        ColorType.BLUE -> Color.Blue
+        ColorType.PURPLE -> Color.Magenta
+        ColorType.GRAY -> Color.Gray
+    }
+}
+
 private fun Long?.getStringResByTaskId(): StringResource {
-    return if (this == Constant.INVALID_TASK_ID) {
+    return if (this == INVALID_TASK_ID) {
         Res.string.add_new_task
     } else {
         Res.string.update_task

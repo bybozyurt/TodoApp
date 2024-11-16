@@ -6,4 +6,6 @@
     <string name="completed">Completed</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
+    <string name="no_notes_available">No Notes Available</string>
+    <string name="add_new_note_info">Add new notes to get started!</string>
 </resources>
