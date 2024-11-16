@@ -109,7 +109,7 @@ android {
                 "proguard-rules.pro"
             )
             isMinifyEnabled = true
-            signingConfig = signingConfigs.getByName("release")
+            signingConfig = signingConfigs.getByName("debug")
         }
     }
     compileOptions {

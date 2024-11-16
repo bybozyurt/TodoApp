@@ -112,7 +112,7 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
 fun TaskView(
     modifier: Modifier,
     state: TaskScreenUiState,
-    onTaskEvent: onTaskEvent,
+    onTaskEvent: (TaskScreenEvent) -> Unit,
     taskId: Long,
 ) {
     val isButtonEnabled by remember(state.title) {
@@ -120,47 +120,17 @@ fun TaskView(
             state.title.isNotEmpty()
         }
     }
+
     Column(
         modifier = modifier
             .fillMaxSize()
             .padding(16.dp)
     ) {
-        OutlinedTextField(
-            value = state.title,
-            onValueChange = {
-                onTaskEvent.invoke(TaskScreenEvent.UpdateTitle(it))
-            },
-            label = {
-                Text(
-                    text = stringResource(Res.string.title),
-                    style = MaterialTheme.typography.labelLarge
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth()
-                .padding(bottom = 8.dp),
-            textStyle = MaterialTheme.typography.labelLarge,
-        )
-        OutlinedTextField(
-            value = state.description,
-            onValueChange = {
-                onTaskEvent.invoke(TaskScreenEvent.UpdateDescription(it))
-            },
-            label = {
-                Text(
-                    text = stringResource(Res.string.description),
-                    style = MaterialTheme.typography.labelLarge
-                )
-            },
-            modifier = Modifier
-                .fillMaxWidth(),
-            textStyle = MaterialTheme.typography.labelLarge,
-            placeholder = {
-                Text(
-                    text = "Enter task description",
-                    style = MaterialTheme.typography.labelLarge,
-                )
-            },
+        TextFieldColumn(
+            title = state.title,
+            description = state.description,
+            onTitleChange = { onTaskEvent.invoke(TaskScreenEvent.UpdateTitle(it)) },
+            onDescriptionChange = { onTaskEvent.invoke(TaskScreenEvent.UpdateDescription(it)) }
         )
 
         ColorRow(
@@ -171,23 +141,12 @@ fun TaskView(
             }
         )
 
-        Row(
-            verticalAlignment = Alignment.CenterVertically,
-            modifier = Modifier
-                .padding(bottom = 16.dp)
-        ) {
-            Checkbox(
-                checked = state.isCompleted,
-                onCheckedChange = {
-                    onTaskEvent.invoke(TaskScreenEvent.UpdateCompletedStatus(it))
-                }
-            )
-            Text(
-                text = stringResource(Res.string.completed),
-                modifier = Modifier.padding(start = 8.dp),
-                style = MaterialTheme.typography.bodySmall
-            )
-        }
+        CheckBoxRow(
+            isCompleted = state.isCompleted,
+            onCompletedStatusChange = {
+                onTaskEvent.invoke(TaskScreenEvent.UpdateCompletedStatus(it))
+            }
+        )
 
         Button(
             onClick = {
@@ -203,6 +162,71 @@ fun TaskView(
         }
     }
 }
+
+@Composable
+fun TextFieldColumn(
+    title: String,
+    description: String,
+    onTitleChange: (String) -> Unit,
+    onDescriptionChange: (String) -> Unit
+) {
+    OutlinedTextField(
+        value = title,
+        onValueChange = onTitleChange,
+        label = {
+            Text(
+                text = stringResource(Res.string.title),
+                style = MaterialTheme.typography.labelLarge
+            )
+        },
+        modifier = Modifier
+            .fillMaxWidth()
+            .padding(bottom = 8.dp),
+        textStyle = MaterialTheme.typography.labelLarge,
+    )
+    OutlinedTextField(
+        value = description,
+        onValueChange = onDescriptionChange,
+        label = {
+            Text(
+                text = stringResource(Res.string.description),
+                style = MaterialTheme.typography.labelLarge
+            )
+        },
+        modifier = Modifier
+            .fillMaxWidth(),
+        textStyle = MaterialTheme.typography.labelLarge,
+        placeholder = {
+            Text(
+                text = "Enter task description",
+                style = MaterialTheme.typography.labelLarge,
+            )
+        },
+    )
+}
+
+@Composable
+fun CheckBoxRow(
+    isCompleted: Boolean,
+    onCompletedStatusChange: (Boolean) -> Unit
+) {
+    Row(
+        verticalAlignment = Alignment.CenterVertically,
+        modifier = Modifier
+            .padding(bottom = 16.dp)
+    ) {
+        Checkbox(
+            checked = isCompleted,
+            onCheckedChange = onCompletedStatusChange
+        )
+        Text(
+            text = stringResource(Res.string.completed),
+            modifier = Modifier.padding(start = 8.dp),
+            style = MaterialTheme.typography.bodySmall
+        )
+    }
+}
+
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
