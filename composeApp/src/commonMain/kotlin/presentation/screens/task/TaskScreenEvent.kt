@@ -8,4 +8,5 @@ sealed class TaskScreenEvent {
     data class UpdateCompletedStatus(val isCompleted: Boolean) : TaskScreenEvent()
     data class UpdateTaskColor(val colorType: ColorType) : TaskScreenEvent()
     data class SaveTaskScreen(val id: Long) : TaskScreenEvent()
+    data class OnDeleteTask(val id: Long) : TaskScreenEvent()
 }

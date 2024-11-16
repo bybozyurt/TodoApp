@@ -29,9 +29,11 @@ class LocalDataSourceImpl(
         }
     }
 
-    override suspend fun deleteTask(task: ToDoTaskEntity) {
+    override suspend fun deleteTask(id: Long) {
         externalScope.launch(dispatcher) {
-            db.toDoDao().deleteTask(task)
+            db.toDoDao().getTaskById(id)?.let {
+                db.toDoDao().deleteTask(it)
+            }
         }
     }
 

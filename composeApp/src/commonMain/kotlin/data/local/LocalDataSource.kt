@@ -11,7 +11,7 @@ interface LocalDataSource {
 
     suspend fun updateTask(task: ToDoTaskEntity)
 
-    suspend fun deleteTask(task: ToDoTaskEntity)
+    suspend fun deleteTask(id: Long)
 
     suspend fun getTaskById(id: Long): ToDoTaskEntity?
 }

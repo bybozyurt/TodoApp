@@ -18,6 +18,7 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.filled.ArrowBack
 import androidx.compose.material.icons.filled.Check
+import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material3.Button
 import androidx.compose.material3.Checkbox
 import androidx.compose.material3.ExperimentalMaterial3Api
@@ -60,6 +61,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIcon
 import presentation.components.AppIconButton
+import presentation.theme.ErrorDark
 import kotlin.random.Random
 
 data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
@@ -74,9 +76,15 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
         val uiState by viewModel.uiState.collectAsState()
         Scaffold(
             topBar = {
-                TopBar(stringResource(id.getStringResByTaskId())) {
-                    navigator.pop()
-                }
+                TopBar(
+                    id = id,
+                    onClick = {
+                        navigator.pop()
+                    },
+                    onDeleteClick = {
+                        viewModel.onEvent(TaskScreenEvent.OnDeleteTask(id))
+                    }
+                )
             }
         ) { paddingValues ->
             TaskView(
@@ -86,10 +94,10 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
                 taskId = id,
             )
         }
-        LaunchedEffect(uiState.isTaskAdded) {
-            if (uiState.isTaskAdded) {
+        LaunchedEffect(uiState.shouldNavigateToBack) {
+            if (uiState.shouldNavigateToBack) {
                 navigator.pop()
-                viewModel.updateIsTaskAdded(false)
+                viewModel.navigateToBack(false)
             }
         }
         LaunchedEffect(Unit) {
@@ -198,10 +206,14 @@ fun TaskView(
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-private fun TopBar(title: String, onClick: onClick) {
+private fun TopBar(
+    id: Long,
+    onClick: onClick,
+    onDeleteClick: onClick,
+) {
     TopAppBar(
         title = {
-            Text(title)
+            Text(stringResource(id.getStringResByTaskId()))
         },
         navigationIcon = {
             AppIconButton(
@@ -209,6 +221,15 @@ private fun TopBar(title: String, onClick: onClick) {
                 onClick = onClick,
                 tintColor = MaterialTheme.colorScheme.primary
             )
+        },
+        actions = {
+            if (id != INVALID_TASK_ID) {
+                AppIconButton(
+                    imageVector = Icons.Filled.Delete,
+                    onClick = onDeleteClick,
+                    tintColor = ErrorDark
+                )
+            }
         },
         colors = TopAppBarDefaults.topAppBarColors(
             containerColor = Color.Transparent

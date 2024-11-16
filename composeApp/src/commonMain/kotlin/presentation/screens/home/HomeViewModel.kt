@@ -28,17 +28,6 @@ class HomeViewModel(
             addTask(event.task)
             return
         }
-
-        if (event is HomeScreenEvent.OnDeleteTask) {
-            deleteTask(event.task)
-            return
-        }
-    }
-
-    private fun deleteTask(task: ToDoTaskEntity) {
-        screenModelScope.launch(ioDispatcher) {
-            repository.deleteTask(task)
-        }
     }
 
     private fun addTask(task: ToDoTaskEntity) {

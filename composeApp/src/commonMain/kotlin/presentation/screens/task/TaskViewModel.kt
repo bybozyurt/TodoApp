@@ -20,8 +20,8 @@ class TaskViewModel(
     private val _uiState = MutableStateFlow(TaskScreenUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun updateIsTaskAdded(isAdded: Boolean) {
-        _uiState.update { it.copy(isTaskAdded = isAdded) }
+    fun navigateToBack(isAdded: Boolean) {
+        _uiState.update { it.copy(shouldNavigateToBack = isAdded) }
     }
 
     fun initTask(id: Long) {
@@ -67,6 +67,10 @@ class TaskViewModel(
                     )
                 )
             }
+
+            is TaskScreenEvent.OnDeleteTask -> {
+                deleteTask(event.id)
+            }
         }
     }
 
@@ -74,6 +78,13 @@ class TaskViewModel(
         screenModelScope.launch(ioDispatcher) {
             addTaskUseCase.invoke(task)
         }
-        updateIsTaskAdded(true)
+        navigateToBack(true)
+    }
+
+    private fun deleteTask(id: Long) {
+        screenModelScope.launch(ioDispatcher) {
+            repository.deleteTask(id)
+        }
+        navigateToBack(true)
     }
 }
