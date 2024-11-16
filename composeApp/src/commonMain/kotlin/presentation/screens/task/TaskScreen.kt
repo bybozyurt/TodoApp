@@ -48,6 +48,7 @@ import common.onClick
 import common.onColorSelected
 import common.onTaskEvent
 import domain.model.ColorType
+import domain.model.ColorType.Companion.toComposeColor
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.add_new_task
 import kotlinproject.composeapp.generated.resources.completed
@@ -250,17 +251,6 @@ private fun ColorRow(
                 }
             }
         }
-    }
-}
-
-private fun ColorType.toComposeColor(): Color {
-    return when (this) {
-        ColorType.GREEN -> Color.Green
-        ColorType.YELLOW -> Color.Yellow
-        ColorType.RED -> Color.Red
-        ColorType.BLUE -> Color.Blue
-        ColorType.PURPLE -> Color.Magenta
-        ColorType.GRAY -> Color.Gray
     }
 }
 

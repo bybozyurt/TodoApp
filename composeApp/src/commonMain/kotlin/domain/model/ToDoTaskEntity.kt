@@ -1,5 +1,6 @@
 package domain.model
 
+import androidx.compose.ui.graphics.Color
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
@@ -14,9 +15,22 @@ data class ToDoTaskEntity(
 
 enum class ColorType {
     GREEN,
-    YELLOW,
+    ORANGE,
     RED,
     BLUE,
     GRAY,
-    PURPLE,
+    PURPLE;
+
+    companion object {
+        fun ColorType.toComposeColor(): Color {
+            return when (this) {
+                GREEN -> Color(0xFF388E3C)
+                ORANGE -> Color(0xFFFF9800)
+                RED -> Color.Red
+                BLUE -> Color.Blue
+                PURPLE -> Color.Magenta
+                GRAY -> Color.Gray
+            }
+        }
+    }
 }

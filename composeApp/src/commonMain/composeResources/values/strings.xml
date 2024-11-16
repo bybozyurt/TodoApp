@@ -1,11 +1,12 @@
 <resources>
     <string name="app_name">KotlinProject</string>
-    <string name="add_new_task">Add New Task</string>
-    <string name="update_task">Update Your Task</string>
-    <string name="save_task">Save Task</string>
+    <string name="add_new_task">Add New Note</string>
+    <string name="update_task">Update Your Note</string>
+    <string name="save_task">Save Note</string>
     <string name="completed">Completed</string>
     <string name="description">Description</string>
     <string name="title">Title</string>
     <string name="no_notes_available">No Notes Available</string>
     <string name="add_new_note_info">Add new notes to get started!</string>
+    <string name="all_notes">All Notes</string>
 </resources>
