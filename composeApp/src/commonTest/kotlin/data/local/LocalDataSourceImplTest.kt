@@ -20,7 +20,7 @@ class LocalDataSourceImplTest {
 
     private lateinit var localDataSource: LocalDataSource
 
-    val scope = TestScope()
+    private val scope = TestScope()
 
     @OptIn(ExperimentalCoroutinesApi::class)
     @BeforeTest
