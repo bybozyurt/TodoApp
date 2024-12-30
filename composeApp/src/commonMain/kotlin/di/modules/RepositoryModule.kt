@@ -9,5 +9,5 @@ import org.koin.dsl.module
 
 val repositoryModule = module {
     single<ToDoRepository> { ToDoRepositoryImpl(get()) }
-    single<LocalDataSource> { LocalDataSourceImpl(get(), get(), get(named(Dispatcher.IO))) }
+    single<LocalDataSource> { LocalDataSourceImpl(get(), get(named(Dispatcher.IO))) }
 }

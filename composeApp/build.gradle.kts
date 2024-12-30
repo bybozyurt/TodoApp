@@ -1,3 +1,4 @@
+import org.jetbrains.compose.ExperimentalComposeLibrary
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 
@@ -62,6 +63,7 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
+            //TODO remove mongo db dependencies
             implementation(libs.mongodb.realm)
             implementation(libs.kotlin.coroutines)
             implementation(libs.stately.common)
@@ -77,6 +79,14 @@ kotlin {
             //Room
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
+        }
+        commonTest.dependencies {
+            implementation(libs.kotlin.test)
+            implementation(libs.assertk)
+            @OptIn(ExperimentalComposeLibrary::class)
+            implementation(compose.uiTest)
+            implementation(libs.kotlinx.coroutines.test)
+            implementation(kotlin("test-annotations-common"))
         }
     }
 }

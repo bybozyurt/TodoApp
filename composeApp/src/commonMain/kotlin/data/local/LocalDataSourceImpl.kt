@@ -3,13 +3,11 @@ package data.local
 import database.ToDoDatabase
 import domain.model.ToDoTaskEntity
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.flow.Flow
-import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class LocalDataSourceImpl(
     private val db: ToDoDatabase,
-    private val externalScope: CoroutineScope,
     private val dispatcher: CoroutineDispatcher,
 ) : LocalDataSource {
 
@@ -18,19 +16,19 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun addTask(task: ToDoTaskEntity) {
-        externalScope.launch(dispatcher) {
+        withContext(dispatcher) {
             db.toDoDao().addTask(task)
         }
     }
 
     override suspend fun updateTask(task: ToDoTaskEntity) {
-        externalScope.launch(dispatcher) {
+        withContext(dispatcher) {
             db.toDoDao().updateTask(task)
         }
     }
 
     override suspend fun deleteTask(id: Long) {
-        externalScope.launch(dispatcher) {
+        withContext(dispatcher) {
             db.toDoDao().getTaskById(id)?.let {
                 db.toDoDao().deleteTask(it)
             }
@@ -38,6 +36,8 @@ class LocalDataSourceImpl(
     }
 
     override suspend fun getTaskById(id: Long): ToDoTaskEntity? {
-        return db.toDoDao().getTaskById(id)
+        return withContext(dispatcher) {
+            db.toDoDao().getTaskById(id)
+        }
     }
 }
