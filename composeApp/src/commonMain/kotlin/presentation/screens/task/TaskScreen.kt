@@ -49,6 +49,7 @@ import common.onClick
 import common.onColorSelected
 import domain.model.ColorType
 import domain.model.ColorType.Companion.toComposeColor
+import presentation.screens.task.TaskScreenContract.*
 import kotlinproject.composeapp.generated.resources.Res
 import kotlinproject.composeapp.generated.resources.add_new_task
 import kotlinproject.composeapp.generated.resources.completed
@@ -74,7 +75,8 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
         val uiState by viewModel.uiState.collectAsState()
-        viewModel.sideEffectFlow.collectWithLifecycle { sideEffect ->
+
+        viewModel.uiEffect.collectWithLifecycle { sideEffect ->
             when (sideEffect) {
                 is TaskScreenSideEffect.NavigateToBack -> {
                     navigator.pop()
@@ -89,7 +91,7 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
                         navigator.pop()
                     },
                     onDeleteClick = {
-                        viewModel.onEvent(TaskScreenEvent.OnDeleteTask(id))
+                        viewModel.onAction(TaskScreenEvent.OnDeleteTask(id))
                     }
                 )
             }
@@ -97,7 +99,7 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
             TaskView(
                 modifier = Modifier.padding(paddingValues),
                 state = uiState,
-                onTaskEvent = viewModel::onEvent,
+                onTaskEvent = viewModel::onAction,
                 taskId = id,
             )
         }
