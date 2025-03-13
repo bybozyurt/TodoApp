@@ -32,9 +32,7 @@ class TaskViewModel(
     fun initTask(id: Long) {
         screenModelScope.launch(ioDispatcher) {
             val task = repository.getTaskById(id)
-            withContext(Dispatchers.Main) {
-                updateTask(task)
-            }
+            updateTask(task)
         }
     }
 
