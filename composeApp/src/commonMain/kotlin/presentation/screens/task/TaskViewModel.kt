@@ -6,10 +6,15 @@ import domain.model.ToDoTaskEntity
 import domain.repository.ToDoRepository
 import domain.usecase.AddTaskUseCase
 import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.asStateFlow
+import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TaskViewModel(
     private val repository: ToDoRepository,
@@ -20,20 +25,15 @@ class TaskViewModel(
     private val _uiState = MutableStateFlow(TaskScreenUiState())
     val uiState = _uiState.asStateFlow()
 
-    fun navigateToBack(isAdded: Boolean) {
-        _uiState.update { it.copy(shouldNavigateToBack = isAdded) }
-    }
+    private val _sideEffectChannel = Channel<TaskScreenSideEffect>(capacity = Channel.BUFFERED)
+    val sideEffectFlow: Flow<TaskScreenSideEffect>
+        get() = _sideEffectChannel.receiveAsFlow()
 
     fun initTask(id: Long) {
         screenModelScope.launch(ioDispatcher) {
             val task = repository.getTaskById(id)
-            _uiState.update {
-                it.copy(
-                    title = task?.title.orEmpty(),
-                    description = task?.description.orEmpty(),
-                    isCompleted = task?.isCompleted == true,
-                    selectedColor = task?.colorType
-                )
+            withContext(Dispatchers.Main) {
+                updateTask(task)
             }
         }
     }
@@ -74,17 +74,32 @@ class TaskViewModel(
         }
     }
 
+    private suspend fun onEffect(effect: TaskScreenSideEffect) {
+        _sideEffectChannel.send(effect)
+    }
+
+    private fun updateTask(task: ToDoTaskEntity?) {
+        _uiState.update {
+            it.copy(
+                title = task?.title.orEmpty(),
+                description = task?.description.orEmpty(),
+                isCompleted = task?.isCompleted == true,
+                selectedColor = task?.colorType
+            )
+        }
+    }
+
     private fun addTask(task: ToDoTaskEntity) {
         screenModelScope.launch(ioDispatcher) {
             addTaskUseCase.invoke(task)
+            onEffect(TaskScreenSideEffect.NavigateToBack)
         }
-        navigateToBack(true)
     }
 
     private fun deleteTask(id: Long) {
         screenModelScope.launch(ioDispatcher) {
             repository.deleteTask(id)
+            onEffect(TaskScreenSideEffect.NavigateToBack)
         }
-        navigateToBack(true)
     }
 }

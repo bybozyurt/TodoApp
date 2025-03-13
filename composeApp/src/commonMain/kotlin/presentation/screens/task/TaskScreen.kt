@@ -47,7 +47,6 @@ import cafe.adriel.voyager.navigator.currentOrThrow
 import common.Constant.INVALID_TASK_ID
 import common.onClick
 import common.onColorSelected
-import common.onTaskEvent
 import domain.model.ColorType
 import domain.model.ColorType.Companion.toComposeColor
 import kotlinproject.composeapp.generated.resources.Res
@@ -61,6 +60,7 @@ import org.jetbrains.compose.resources.StringResource
 import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIcon
 import presentation.components.AppIconButton
+import presentation.extensions.collectWithLifecycle
 import presentation.theme.ErrorDark
 import kotlin.random.Random
 
@@ -74,6 +74,13 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
         val navigator = LocalNavigator.currentOrThrow
         val viewModel = getScreenModel<TaskViewModel>()
         val uiState by viewModel.uiState.collectAsState()
+        viewModel.sideEffectFlow.collectWithLifecycle { sideEffect ->
+            when (sideEffect) {
+                is TaskScreenSideEffect.NavigateToBack -> {
+                    navigator.pop()
+                }
+            }
+        }
         Scaffold(
             topBar = {
                 TopBar(
@@ -93,12 +100,6 @@ data class TaskScreen(val id: Long = INVALID_TASK_ID) : Screen {
                 onTaskEvent = viewModel::onEvent,
                 taskId = id,
             )
-        }
-        LaunchedEffect(uiState.shouldNavigateToBack) {
-            if (uiState.shouldNavigateToBack) {
-                navigator.pop()
-                viewModel.navigateToBack(false)
-            }
         }
         LaunchedEffect(Unit) {
             if (id != INVALID_TASK_ID) {

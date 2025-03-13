@@ -10,3 +10,7 @@ sealed class TaskScreenEvent {
     data class SaveTaskScreen(val id: Long) : TaskScreenEvent()
     data class OnDeleteTask(val id: Long) : TaskScreenEvent()
 }
+
+sealed interface TaskScreenSideEffect {
+    data object NavigateToBack : TaskScreenSideEffect
+}
