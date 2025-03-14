@@ -4,22 +4,24 @@ import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import presentation.screens.task.TaskScreenContract.*
 import domain.model.ToDoTaskEntity
-import domain.repository.ToDoRepository
 import domain.usecase.AddTaskUseCase
+import domain.usecase.DeleteTaskUseCase
+import domain.usecase.GetTaskByIdUseCase
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
 import presentation.delegate.mvi.MVI
 import presentation.delegate.mvi.mvi
 
 class TaskViewModel(
-    private val repository: ToDoRepository,
-    private val addTaskUseCase: AddTaskUseCase,
     private val ioDispatcher: CoroutineDispatcher,
+    private val addTaskUseCase: AddTaskUseCase,
+    private val deleteTaskUseCase: DeleteTaskUseCase,
+    private val getTaskByIdUseCase: GetTaskByIdUseCase,
 ) : ScreenModel, MVI<TaskScreenUiState, TaskScreenEvent, TaskScreenSideEffect> by mvi(TaskScreenUiState()) {
 
     fun initTask(id: Long) {
         screenModelScope.launch(ioDispatcher) {
-            val task = repository.getTaskById(id)
+            val task = getTaskByIdUseCase(id)
             updateTask(task)
         }
     }
@@ -73,14 +75,14 @@ class TaskViewModel(
 
     private fun addTask(task: ToDoTaskEntity) {
         screenModelScope.launch(ioDispatcher) {
-            addTaskUseCase.invoke(task)
+            addTaskUseCase(task)
             emitUiEffect(TaskScreenSideEffect.NavigateToBack)
         }
     }
 
     private fun deleteTask(id: Long) {
         screenModelScope.launch(ioDispatcher) {
-            repository.deleteTask(id)
+            deleteTaskUseCase(id)
             emitUiEffect(TaskScreenSideEffect.NavigateToBack)
         }
     }

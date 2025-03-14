@@ -6,12 +6,13 @@ import domain.repository.ToDoRepository
 
 class AddTaskUseCase(
     private val repository: ToDoRepository,
+    private val updateTaskUseCase: UpdateTaskUseCase,
 ) {
     suspend operator fun invoke(task: ToDoTaskEntity) {
         if (task.id == Constant.INVALID_TASK_ID) {
             repository.addTask(task)
             return
         }
-        repository.updateTask(task)
+        updateTaskUseCase(task)
     }
 }

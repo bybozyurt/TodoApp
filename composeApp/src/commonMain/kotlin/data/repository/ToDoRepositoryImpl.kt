@@ -11,9 +11,7 @@ class ToDoRepositoryImpl(
 ) : ToDoRepository {
 
     override fun getAllTasks(): Flow<List<ToDoTaskEntity>> {
-        return localDataSource.getAllTasks().map { state ->
-            state.sortedByDescending { !it.isCompleted }
-        }
+        return localDataSource.getAllTasks()
     }
 
     override suspend fun addTask(task: ToDoTaskEntity) {
