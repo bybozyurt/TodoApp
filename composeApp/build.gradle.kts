@@ -6,18 +6,10 @@ plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.realm.plugin)
     alias(libs.plugins.compose.compiler)
-    //Room
-    alias(libs.plugins.ksp)
-    alias(libs.plugins.room)
 }
 
 kotlin {
-
-    sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata")
-    }
 
     androidTarget {
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -34,8 +26,6 @@ kotlin {
         iosTarget.binaries.framework {
             baseName = "ComposeApp"
             isStatic = true
-            // Required when using NativeSQLiteDriver
-            linkerOpts.add("-lsqlite3")
         }
     }
 
@@ -44,7 +34,6 @@ kotlin {
         androidMain.dependencies {
             implementation(compose.preview)
             implementation(libs.androidx.activity.compose)
-            implementation(libs.room.runtime.android)
             implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
             implementation(projects.shared) // Added shared module
@@ -63,8 +52,6 @@ kotlin {
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
-            //TODO remove mongo db dependencies
-            implementation(libs.mongodb.realm)
             implementation(libs.kotlin.coroutines)
             implementation(libs.stately.common)
 
@@ -75,10 +62,6 @@ kotlin {
 
             // required by koin
             implementation("co.touchlab:stately-common:2.0.5")
-
-            //Room
-            implementation(libs.room.runtime)
-            implementation(libs.sqlite.bundled)
 
             implementation(projects.shared)
             implementation(projects.feature)
@@ -138,19 +121,3 @@ android {
     }
 }
 
-room {
-    schemaDirectory("$projectDir/schemas")
-}
-
-dependencies {
-
-    implementation(libs.androidx.navigation.runtime.ktx)
-    // Room
-    add("kspCommonMainMetadata", libs.room.compiler)
-}
-
-tasks.withType<org.jetbrains.kotlin.gradle.dsl.KotlinCompile<*>>().configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
-}
