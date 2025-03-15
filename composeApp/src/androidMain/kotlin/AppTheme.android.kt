@@ -9,9 +9,9 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import presentation.theme.DarkColorScheme
-import presentation.theme.LightColorScheme
-import presentation.theme.Typography
+import ab.todoapp.feature.theme.DarkColorScheme
+import ab.todoapp.feature.theme.LightColorScheme
+import ab.todoapp.feature.theme.Typography
 
 @Composable
 actual fun AppTheme(

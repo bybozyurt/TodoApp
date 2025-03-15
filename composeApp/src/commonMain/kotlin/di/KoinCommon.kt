@@ -1,12 +1,11 @@
 package di
 
-import di.modules.coroutineScopeModule
-import di.modules.dispatcherModule
-import di.modules.platformModule
-import di.modules.repositoryModule
-import di.modules.roomDatabaseModule
-import di.modules.useCaseModule
-import di.modules.viewModelsModule
+import ab.todoapp.core.di.coroutineScopeModule
+import ab.todoapp.core.di.dispatcherModule
+import ab.todoapp.data.di.dataModule
+import ab.todoapp.data.modules.platformModule
+import ab.todoapp.domain.di.domainModule
+import ab.todoapp.feature.di.featureModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
@@ -15,12 +14,11 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
         appDeclaration()
         modules(
             platformModule,
-            repositoryModule,
-            roomDatabaseModule,
-            viewModelsModule,
+            dataModule,
+            domainModule,
+            featureModule,
             dispatcherModule,
             coroutineScopeModule,
-            useCaseModule,
         )
     }
 

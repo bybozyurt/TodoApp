@@ -80,7 +80,11 @@ kotlin {
             implementation(libs.room.runtime)
             implementation(libs.sqlite.bundled)
 
-            implementation(projects.shared) // Added shared module
+            implementation(projects.shared)
+            implementation(projects.feature)
+            implementation(projects.data)
+            implementation(projects.domain)
+            implementation(projects.core)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -98,7 +102,6 @@ android {
     compileSdk = libs.versions.android.compileSdk.get().toInt()
 
     sourceSets["main"].manifest.srcFile("src/androidMain/AndroidManifest.xml")
-
 
     defaultConfig {
         applicationId = "ab.todoapp"

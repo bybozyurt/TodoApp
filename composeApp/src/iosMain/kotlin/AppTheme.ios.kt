@@ -1,8 +1,7 @@
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.runtime.Composable
-import presentation.theme.DarkColorScheme
-import presentation.theme.LightColorScheme
-import presentation.theme.Typography
+import ab.todoapp.feature.theme.DarkColorScheme
+import ab.todoapp.feature.theme.LightColorScheme
 
 @Composable
 actual fun AppTheme(
