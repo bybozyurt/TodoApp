@@ -1,6 +1,6 @@
-package ab.todoapp.data.data.local
+package ab.todoapp.data.source.local
 
-import ab.todoapp.data.data.model.ToDoTaskEntity
+import ab.todoapp.data.model.ToDoTaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {

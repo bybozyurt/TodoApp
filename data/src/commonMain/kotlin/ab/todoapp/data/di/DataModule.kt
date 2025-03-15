@@ -1,9 +1,9 @@
 package ab.todoapp.data.di
 
 import ab.todoapp.core.di.Dispatcher
-import ab.todoapp.data.data.local.LocalDataSource
-import ab.todoapp.data.data.local.LocalDataSourceImpl
-import ab.todoapp.data.data.repository.ToDoRepositoryImpl
+import ab.todoapp.data.source.local.LocalDataSource
+import ab.todoapp.data.source.local.LocalDataSourceImpl
+import ab.todoapp.data.repository.ToDoRepositoryImpl
 import ab.todoapp.data.database.ToDoDatabase
 import ab.todoapp.domain.repository.ToDoRepository
 import androidx.room.RoomDatabase

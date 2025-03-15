@@ -1,8 +1,8 @@
-package ab.todoapp.data.data.repository
+package ab.todoapp.data.repository
 
-import ab.todoapp.data.data.local.LocalDataSource
-import ab.todoapp.data.data.mapper.toDomain
-import ab.todoapp.data.data.mapper.toEntity
+import ab.todoapp.data.source.local.LocalDataSource
+import ab.todoapp.data.model.toDomain
+import ab.todoapp.data.model.toEntity
 import ab.todoapp.domain.model.ToDoTask
 import ab.todoapp.domain.repository.ToDoRepository
 import kotlinx.coroutines.flow.Flow

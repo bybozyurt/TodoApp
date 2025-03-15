@@ -1,6 +1,5 @@
-package ab.todoapp.data.data.mapper
+package ab.todoapp.data.model
 
-import ab.todoapp.data.data.model.ToDoTaskEntity
 import ab.todoapp.domain.model.ToDoTask
 
 fun ToDoTaskEntity.toDomain(): ToDoTask {

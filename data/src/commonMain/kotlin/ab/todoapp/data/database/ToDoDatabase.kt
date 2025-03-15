@@ -1,6 +1,6 @@
 package ab.todoapp.data.database
 
-import ab.todoapp.data.data.model.ToDoTaskEntity
+import ab.todoapp.data.model.ToDoTaskEntity
 import ab.todoapp.data.database.dao.ToDoDao
 import androidx.room.Database
 import androidx.room.RoomDatabase

@@ -1,6 +1,6 @@
 package ab.todoapp.data.database.dao
 
-import ab.todoapp.data.data.model.ToDoTaskEntity
+import ab.todoapp.data.model.ToDoTaskEntity
 import androidx.room.Dao
 import androidx.room.Delete
 import androidx.room.Insert
