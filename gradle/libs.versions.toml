@@ -31,6 +31,7 @@ navigationRuntimeKtx = "2.7.7"
 assertk = "0.28.1"
 coreKtx = "1.6.1"
 composeTest = "1.6.8"
+jetbrainsKotlinJvm = "1.9.0"
 
 [libraries]
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -82,3 +83,4 @@ realm-plugin = { id = "io.realm.kotlin", version.ref = "realm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
+jetbrains-kotlin-jvm = { id = "org.jetbrains.kotlin.jvm", version.ref = "jetbrainsKotlinJvm" }

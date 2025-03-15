@@ -67,7 +67,7 @@ kotlin {
             implementation(projects.feature)
             implementation(projects.data)
             implementation(projects.domain)
-            implementation(projects.core)
+            implementation(projects.core.di)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
