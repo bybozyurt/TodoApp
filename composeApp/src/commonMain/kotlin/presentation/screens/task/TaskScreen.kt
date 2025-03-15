@@ -1,5 +1,6 @@
 package presentation.screens.task
 
+import ab.todoapp.shared.Resources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.clickable
@@ -50,15 +51,6 @@ import common.onColorSelected
 import domain.model.ColorType
 import domain.model.ColorType.Companion.toComposeColor
 import presentation.screens.task.TaskScreenContract.*
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.add_new_task
-import kotlinproject.composeapp.generated.resources.completed
-import kotlinproject.composeapp.generated.resources.description
-import kotlinproject.composeapp.generated.resources.save_task
-import kotlinproject.composeapp.generated.resources.title
-import kotlinproject.composeapp.generated.resources.update_task
-import org.jetbrains.compose.resources.StringResource
-import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIcon
 import presentation.components.AppIconButton
 import presentation.extensions.collectWithLifecycle
@@ -159,7 +151,7 @@ fun TaskView(
             enabled = isButtonEnabled
         ) {
             Text(
-                text = stringResource(Res.string.save_task),
+                text = Resources.String.save_task(),
                 style = MaterialTheme.typography.labelLarge
             )
         }
@@ -178,7 +170,7 @@ fun TextFieldColumn(
         onValueChange = onTitleChange,
         label = {
             Text(
-                text = stringResource(Res.string.title),
+                text = Resources.String.title(),
                 style = MaterialTheme.typography.labelLarge
             )
         },
@@ -192,7 +184,7 @@ fun TextFieldColumn(
         onValueChange = onDescriptionChange,
         label = {
             Text(
-                text = stringResource(Res.string.description),
+                text = Resources.String.description(),
                 style = MaterialTheme.typography.labelLarge
             )
         },
@@ -216,6 +208,9 @@ fun CheckBoxRow(
     Row(
         verticalAlignment = Alignment.CenterVertically,
         modifier = Modifier
+            .clickable {
+                onCompletedStatusChange(!isCompleted)
+            }
             .padding(bottom = 16.dp)
     ) {
         Checkbox(
@@ -223,7 +218,7 @@ fun CheckBoxRow(
             onCheckedChange = onCompletedStatusChange
         )
         Text(
-            text = stringResource(Res.string.completed),
+            text = Resources.String.completed(),
             modifier = Modifier.padding(start = 8.dp),
             style = MaterialTheme.typography.bodySmall
         )
@@ -240,7 +235,7 @@ private fun TopBar(
 ) {
     TopAppBar(
         title = {
-            Text(stringResource(id.getStringResByTaskId()))
+            Text(id.getStringResByTaskId())
         },
         navigationIcon = {
             AppIconButton(
@@ -302,10 +297,11 @@ private fun ColorRow(
     }
 }
 
-private fun Long?.getStringResByTaskId(): StringResource {
+@Composable
+private fun Long?.getStringResByTaskId(): String {
     return if (this == INVALID_TASK_ID) {
-        Res.string.add_new_task
+        Resources.String.add_new_task()
     } else {
-        Res.string.update_task
+        Resources.String.update_task()
     }
 }

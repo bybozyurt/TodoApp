@@ -1,5 +1,6 @@
 package presentation.screens.home.ui
 
+import ab.todoapp.shared.Resources
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -17,10 +18,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import kotlinproject.composeapp.generated.resources.Res
-import kotlinproject.composeapp.generated.resources.add_new_note_info
-import kotlinproject.composeapp.generated.resources.no_notes_available
-import org.jetbrains.compose.resources.stringResource
 import presentation.components.AppIcon
 
 @Composable
@@ -42,13 +39,13 @@ fun EmptyState() {
             )
             Spacer(modifier = Modifier.height(16.dp))
             Text(
-                text = stringResource(Res.string.no_notes_available),
+                text = Resources.String.no_notes_available(),
                 style = MaterialTheme.typography.bodyMedium,
                 color = Color.Gray,
                 textAlign = TextAlign.Center
             )
             Text(
-                text = stringResource(Res.string.add_new_note_info),
+                text = Resources.String.add_new_note_info(),
                 style = MaterialTheme.typography.bodySmall,
                 color = Color.Gray,
                 textAlign = TextAlign.Center
