@@ -26,9 +26,9 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
-import common.onHomeEvent
-import domain.model.ColorType.Companion.toComposeColor
-import domain.model.ToDoTaskEntity
+import data.model.ToDoTaskEntity
+import domain.model.ToDoTask
+import presentation.extensions.toComposeColor
 import presentation.screens.home.HomeScreenEvent
 import presentation.screens.home.HomeViewModel
 import presentation.screens.task.TaskScreen
@@ -37,7 +37,7 @@ import presentation.screens.task.TaskScreen
 @Composable
 fun TaskList(
     modifier: Modifier = Modifier,
-    tasks: List<ToDoTaskEntity>?,
+    tasks: List<ToDoTask>?,
     viewModel: HomeViewModel,
 ) {
     val navigator = LocalNavigator.currentOrThrow
@@ -82,8 +82,8 @@ fun TaskList(
 @Composable
 private fun TaskItemView(
     modifier: Modifier = Modifier,
-    task: ToDoTaskEntity,
-    onEvent: onHomeEvent
+    task: ToDoTask,
+    onEvent: (HomeScreenEvent) -> Unit
 ) {
     val textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
 

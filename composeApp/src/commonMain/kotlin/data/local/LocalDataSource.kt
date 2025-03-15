@@ -1,6 +1,6 @@
 package data.local
 
-import domain.model.ToDoTaskEntity
+import data.model.ToDoTaskEntity
 import kotlinx.coroutines.flow.Flow
 
 interface LocalDataSource {

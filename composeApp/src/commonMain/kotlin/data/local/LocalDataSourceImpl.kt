@@ -1,7 +1,7 @@
 package data.local
 
 import database.ToDoDatabase
-import domain.model.ToDoTaskEntity
+import data.model.ToDoTaskEntity
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext

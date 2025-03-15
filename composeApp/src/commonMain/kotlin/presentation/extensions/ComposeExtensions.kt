@@ -2,10 +2,18 @@ package presentation.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
+import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
+import domain.model.ColorType
+import domain.model.ColorType.BLUE
+import domain.model.ColorType.GRAY
+import domain.model.ColorType.GREEN
+import domain.model.ColorType.ORANGE
+import domain.model.ColorType.PURPLE
+import domain.model.ColorType.RED
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -35,5 +43,16 @@ private fun <T> Flow<T>.CollectSideEffect(
                 }
             }
         }
+    }
+}
+
+fun ColorType.toComposeColor(): Color {
+    return when (this) {
+        GREEN -> Color(0xFF388E3C)
+        ORANGE -> Color(0xFFFF9800)
+        RED -> Color.Red
+        BLUE -> Color.Blue
+        PURPLE -> Color.Magenta
+        GRAY -> Color.Gray
     }
 }

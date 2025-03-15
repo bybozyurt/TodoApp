@@ -47,13 +47,12 @@ import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import common.Constant.INVALID_TASK_ID
 import common.onClick
-import common.onColorSelected
 import domain.model.ColorType
-import domain.model.ColorType.Companion.toComposeColor
 import presentation.screens.task.TaskScreenContract.*
 import presentation.components.AppIcon
 import presentation.components.AppIconButton
 import presentation.extensions.collectWithLifecycle
+import presentation.extensions.toComposeColor
 import presentation.theme.ErrorDark
 import kotlin.random.Random
 
@@ -263,7 +262,7 @@ private fun TopBar(
 private fun ColorRow(
     colors: List<ColorType>,
     selectedColor: ColorType?,
-    onColorSelected: onColorSelected,
+    onColorSelected: (ColorType) -> Unit,
 ) {
     LazyRow(
         modifier = Modifier

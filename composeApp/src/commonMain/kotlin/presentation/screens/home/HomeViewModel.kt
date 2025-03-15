@@ -2,8 +2,7 @@ package presentation.screens.home
 
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
-import domain.model.ToDoTaskEntity
-import domain.repository.ToDoRepository
+import domain.model.ToDoTask
 import domain.usecase.AddTaskUseCase
 import domain.usecase.GetTasksUseCase
 import kotlinx.coroutines.CoroutineDispatcher
@@ -31,7 +30,7 @@ class HomeViewModel(
         }
     }
 
-    private fun addTask(task: ToDoTaskEntity) {
+    private fun addTask(task: ToDoTask) {
         screenModelScope.launch(ioDispatcher) {
             addTaskUseCase(task)
         }

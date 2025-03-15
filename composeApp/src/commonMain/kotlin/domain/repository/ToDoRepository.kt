@@ -1,18 +1,19 @@
 package domain.repository
 
-import domain.model.ToDoTaskEntity
+import data.model.ToDoTaskEntity
+import domain.model.ToDoTask
 import kotlinx.coroutines.flow.Flow
 
 interface ToDoRepository {
 
-    fun getAllTasks(): Flow<List<ToDoTaskEntity>>
+    fun getAllTasks(): Flow<List<ToDoTask>>
 
-    suspend fun addTask(task: ToDoTaskEntity)
+    suspend fun addTask(task: ToDoTask)
 
-    suspend fun updateTask(task: ToDoTaskEntity)
+    suspend fun updateTask(task: ToDoTask)
 
     suspend fun deleteTask(id: Long)
 
-    suspend fun getTaskById(id: Long): ToDoTaskEntity?
+    suspend fun getTaskById(id: Long): ToDoTask?
 
 }

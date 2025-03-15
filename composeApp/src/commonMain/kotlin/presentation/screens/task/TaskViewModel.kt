@@ -3,7 +3,7 @@ package presentation.screens.task
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import presentation.screens.task.TaskScreenContract.*
-import domain.model.ToDoTaskEntity
+import domain.model.ToDoTask
 import domain.usecase.AddTaskUseCase
 import domain.usecase.DeleteTaskUseCase
 import domain.usecase.GetTaskByIdUseCase
@@ -46,7 +46,7 @@ class TaskViewModel(
 
             is TaskScreenEvent.SaveTaskScreen -> {
                 addTask(
-                    ToDoTaskEntity(
+                    ToDoTask(
                         id = uiAction.id,
                         title = currentUiState.title,
                         description = currentUiState.description,
@@ -62,7 +62,7 @@ class TaskViewModel(
         }
     }
 
-    private fun updateTask(task: ToDoTaskEntity?) {
+    private fun updateTask(task: ToDoTask?) {
         updateUiState {
             copy(
                 title = task?.title.orEmpty(),
@@ -73,7 +73,7 @@ class TaskViewModel(
         }
     }
 
-    private fun addTask(task: ToDoTaskEntity) {
+    private fun addTask(task: ToDoTask) {
         screenModelScope.launch(ioDispatcher) {
             addTaskUseCase(task)
             emitUiEffect(TaskScreenSideEffect.NavigateToBack)

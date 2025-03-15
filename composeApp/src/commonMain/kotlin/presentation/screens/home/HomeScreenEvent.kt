@@ -1,8 +1,8 @@
 package presentation.screens.home
 
-import domain.model.ToDoTaskEntity
+import domain.model.ToDoTask
 
 sealed class HomeScreenEvent {
-    data class OnCheckedChange(val task: ToDoTaskEntity) : HomeScreenEvent()
+    data class OnCheckedChange(val task: ToDoTask) : HomeScreenEvent()
     data class OnTaskClick(val id: Long) : HomeScreenEvent()
 }
