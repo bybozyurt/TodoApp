@@ -5,7 +5,8 @@ import ab.todoapp.core.di.dispatcherModule
 import ab.todoapp.data.di.dataModule
 import ab.todoapp.data.modules.platformModule
 import ab.todoapp.domain.di.domainModule
-import ab.todoapp.feature.di.featureModule
+import ab.todoapp.feature.home.di.homeModule
+import ab.todoapp.feature.taskeditor.di.taskEditorModule
 import org.koin.core.context.startKoin
 import org.koin.dsl.KoinAppDeclaration
 
@@ -16,7 +17,8 @@ fun initKoin(appDeclaration: KoinAppDeclaration = {}) =
             platformModule,
             dataModule,
             domainModule,
-            featureModule,
+            homeModule,
+            taskEditorModule,
             dispatcherModule,
             coroutineScopeModule,
         )

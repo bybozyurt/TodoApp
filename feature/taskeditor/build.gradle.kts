@@ -14,14 +14,27 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation(libs.kotlin.coroutines)
                 implementation(compose.runtime)
                 implementation(compose.foundation)
                 implementation(compose.material3)
                 implementation(compose.ui)
                 implementation(compose.components.uiToolingPreview)
+
+                implementation(libs.navigator)
+                implementation(libs.navigator.screen.model)
+                implementation(libs.navigator.transitions)
+                implementation(libs.navigator.koin)
+                implementation(libs.koin.core)
+                implementation(libs.koin.compose)
+                implementation("co.touchlab:stately-common:2.0.5")
                 implementation(libs.lifecycle.runtime.compose)
-                implementation(projects.domain)
+
+
+                implementation(project(":domain"))
+                implementation(project(":shared"))
+                implementation(project(":core:di"))
+                implementation(project(":core:ui"))
+                implementation(project(":navigation"))
             }
         }
 
@@ -48,7 +61,7 @@ kotlin {
 }
 
 android {
-    namespace = "ab.todoapp.core.ui"
+    namespace = "ab.todoapp.feature.taskeditor"
     compileSdk = 34
 
     defaultConfig {
@@ -59,9 +72,7 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
     buildFeatures {
         compose = true
     }
-
 }

@@ -1,8 +1,6 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
-    alias(libs.plugins.jetbrainsCompose)
-    alias(libs.plugins.compose.compiler)
 }
 
 kotlin {
@@ -14,14 +12,10 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation(libs.kotlin.coroutines)
-                implementation(compose.runtime)
-                implementation(compose.foundation)
-                implementation(compose.material3)
-                implementation(compose.ui)
-                implementation(compose.components.uiToolingPreview)
-                implementation(libs.lifecycle.runtime.compose)
-                implementation(projects.domain)
+                implementation(libs.navigator)
+                implementation(libs.navigator.screen.model)
+                implementation(libs.navigator.transitions)
+                implementation(libs.navigator.koin)
             }
         }
 
@@ -48,7 +42,7 @@ kotlin {
 }
 
 android {
-    namespace = "ab.todoapp.core.ui"
+    namespace = "ab.todoapp.navigation"
     compileSdk = 34
 
     defaultConfig {
@@ -59,9 +53,4 @@ android {
         sourceCompatibility = JavaVersion.VERSION_17
         targetCompatibility = JavaVersion.VERSION_17
     }
-
-    buildFeatures {
-        compose = true
-    }
-
 }

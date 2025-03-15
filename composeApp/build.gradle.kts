@@ -64,9 +64,11 @@ kotlin {
             implementation("co.touchlab:stately-common:2.0.5")
 
             implementation(projects.shared)
-            implementation(projects.feature)
+            implementation(projects.feature.home)
+            implementation(projects.feature.taskeditor)
             implementation(projects.data)
             implementation(projects.domain)
+            implementation(projects.navigation)
             implementation(projects.core.di)
             implementation(projects.core.ui)
         }

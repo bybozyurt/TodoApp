@@ -1,8 +1,8 @@
+import ab.todoapp.feature.home.HomeScreen
 import androidx.compose.runtime.Composable
 import cafe.adriel.voyager.navigator.Navigator
 import cafe.adriel.voyager.transitions.SlideTransition
 import org.jetbrains.compose.ui.tooling.preview.Preview
-import ab.todoapp.feature.screens.home.HomeScreen
 
 @Composable
 @Preview
@@ -14,8 +14,11 @@ fun App(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor,
     ) {
-        Navigator(HomeScreen()) {
+        Navigator(
+            HomeScreen()
+        ) {
             SlideTransition(it)
         }
     }
+
 }
