@@ -1,19 +1,11 @@
-package ab.todoapp.feature.extensions
+package ab.todoapp.ui.extensions
 
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.LaunchedEffect
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.lifecycle.Lifecycle
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.repeatOnLifecycle
-import ab.todoapp.domain.model.ColorType
-import ab.todoapp.domain.model.ColorType.BLUE
-import ab.todoapp.domain.model.ColorType.GRAY
-import ab.todoapp.domain.model.ColorType.GREEN
-import ab.todoapp.domain.model.ColorType.ORANGE
-import ab.todoapp.domain.model.ColorType.PURPLE
-import ab.todoapp.domain.model.ColorType.RED
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -46,13 +38,3 @@ private fun <T> Flow<T>.CollectSideEffect(
     }
 }
 
-fun ColorType.toComposeColor(): Color {
-    return when (this) {
-        GREEN -> Color(0xFF388E3C)
-        ORANGE -> Color(0xFFFF9800)
-        RED -> Color.Red
-        BLUE -> Color.Blue
-        PURPLE -> Color.Magenta
-        GRAY -> Color.Gray
-    }
-}

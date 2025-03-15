@@ -1,4 +1,4 @@
-package ab.todoapp.feature.theme
+package ab.todoapp.ui.theme
 
 import androidx.compose.material3.darkColorScheme
 import androidx.compose.material3.lightColorScheme

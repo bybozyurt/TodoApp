@@ -46,11 +46,11 @@ import cafe.adriel.voyager.koin.getScreenModel
 import cafe.adriel.voyager.navigator.LocalNavigator
 import cafe.adriel.voyager.navigator.currentOrThrow
 import ab.todoapp.feature.screens.task.TaskScreenContract.*
-import presentation.components.AppIcon
-import presentation.components.AppIconButton
-import ab.todoapp.feature.extensions.collectWithLifecycle
 import ab.todoapp.feature.extensions.toComposeColor
-import ab.todoapp.feature.theme.ErrorDark
+import ab.todoapp.ui.components.AppIcon
+import ab.todoapp.ui.components.AppIconButton
+import ab.todoapp.ui.extensions.collectWithLifecycle
+import ab.todoapp.ui.theme.ErrorDark
 import androidx.compose.foundation.lazy.items
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import kotlin.random.Random

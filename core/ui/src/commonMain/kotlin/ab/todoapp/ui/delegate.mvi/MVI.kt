@@ -1,4 +1,4 @@
-package presentation.delegate.mvi
+package ab.todoapp.ui.delegate.mvi
 
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.StateFlow

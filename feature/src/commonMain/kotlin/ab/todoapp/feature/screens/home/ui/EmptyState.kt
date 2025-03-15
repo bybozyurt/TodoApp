@@ -1,6 +1,7 @@
 package ab.todoapp.feature.screens.home.ui
 
 import ab.todoapp.shared.Resources
+import ab.todoapp.ui.components.AppIcon
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -18,7 +19,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
-import presentation.components.AppIcon
 
 @Composable
 fun EmptyState() {

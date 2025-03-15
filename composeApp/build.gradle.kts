@@ -68,6 +68,7 @@ kotlin {
             implementation(projects.data)
             implementation(projects.domain)
             implementation(projects.core.di)
+            implementation(projects.core.ui)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

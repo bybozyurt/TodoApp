@@ -1,3 +1,6 @@
+import ab.todoapp.ui.theme.DarkColorScheme
+import ab.todoapp.ui.theme.LightColorScheme
+import ab.todoapp.ui.theme.Typography
 import android.app.Activity
 import android.os.Build
 import androidx.compose.material3.MaterialTheme
@@ -9,9 +12,6 @@ import androidx.compose.ui.graphics.toArgb
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalView
 import androidx.core.view.WindowCompat
-import ab.todoapp.feature.theme.DarkColorScheme
-import ab.todoapp.feature.theme.LightColorScheme
-import ab.todoapp.feature.theme.Typography
 
 @Composable
 actual fun AppTheme(

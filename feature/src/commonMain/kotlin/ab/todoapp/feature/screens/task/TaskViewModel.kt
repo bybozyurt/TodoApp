@@ -7,10 +7,10 @@ import ab.todoapp.domain.usecase.GetTaskByIdUseCase
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import ab.todoapp.feature.screens.task.TaskScreenContract.*
+import ab.todoapp.ui.delegate.mvi.MVI
+import ab.todoapp.ui.delegate.mvi.mvi
 import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.launch
-import presentation.delegate.mvi.MVI
-import presentation.delegate.mvi.mvi
 
 class TaskViewModel(
     private val ioDispatcher: CoroutineDispatcher,
