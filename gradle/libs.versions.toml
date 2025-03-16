@@ -74,7 +74,7 @@ compose-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-
 compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
 core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }
 lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
-koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version = "4.0.1" }
+koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version = "4.0.0-RC1" }
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
