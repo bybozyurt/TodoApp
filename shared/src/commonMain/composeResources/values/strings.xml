@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">KotlinProject</string>
+    <string name="app_name">Note App</string>
     <string name="add_new_task">Add New Note</string>
     <string name="update_task">Update Your Note</string>
     <string name="save_task">Save Note</string>

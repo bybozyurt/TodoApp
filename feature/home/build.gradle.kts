@@ -21,10 +21,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.components.uiToolingPreview)
 
-                implementation(libs.navigator)
-                implementation(libs.navigator.screen.model)
-                implementation(libs.navigator.transitions)
-                implementation(libs.navigator.koin)
                 implementation(libs.androidx.navigation.compose)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(libs.koin.core)
@@ -34,10 +30,10 @@ kotlin {
                 implementation(libs.lifecycle.runtime.compose)
 
 
-                implementation(project(":domain"))
-                implementation(project(":shared"))
-                implementation(project(":core:di"))
-                implementation(project(":core:ui"))
+                implementation(projects.domain)
+                implementation(projects.shared)
+                implementation(projects.core.di)
+                implementation(projects.core.ui)
             }
         }
 

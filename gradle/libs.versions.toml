@@ -15,10 +15,8 @@ coreSplashscreen = "1.0.1"
 junit = "4.13.2"
 kotlin = "2.0.0"
 lifecycleRuntimeCompose = "2.8.4"
-voyager = "1.0.0"
 koin = "3.5.3"
 koinCompose = "1.0.4"
-realm = "2.0.0"
 coroutines = "1.8.0"
 stately = "2.0.5"
 compose = "1.6.10"
@@ -27,12 +25,8 @@ ksp = "2.0.0-1.0.21"
 sqlite = "2.5.0-SNAPSHOT"
 kotlinx-serialization = "1.6.3"
 androidx-navigation = "2.8.0-alpha10"
-navigationRuntimeKtx = "2.7.7"
 assertk = "0.28.1"
-coreKtx = "1.6.1"
-composeTest = "1.6.8"
 jetbrainsKotlinJvm = "1.9.0"
-lifecycleViewmodelCompose = "2.8.0-alpha03"
 
 [libraries]
 androidGradle = { module = "com.android.tools.build:gradle", version.ref = "agp" }
@@ -50,15 +44,10 @@ androidx-material = { group = "com.google.android.material", name = "material", 
 androidx-constraintlayout = { group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "androidx-constraintlayout" }
 androidx-activity-compose = { module = "androidx.activity:activity-compose", version.ref = "androidx-activityCompose" }
 lifecycle-runtime-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-runtime-compose", version.ref = "lifecycleRuntimeCompose" }
-navigator = { module = "cafe.adriel.voyager:voyager-navigator", version.ref = "voyager" }
-navigator-screen-model = { module = "cafe.adriel.voyager:voyager-screenmodel", version.ref = "voyager" }
-navigator-transitions = { module = "cafe.adriel.voyager:voyager-transitions", version.ref = "voyager" }
-navigator-koin = { module = "cafe.adriel.voyager:voyager-koin", version.ref = "voyager" }
 koin-android = { module = "io.insert-koin:koin-android", version.ref = "koin" }
 koin-desktop = { module = "io.insert-koin:koin-desktop", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core", version.ref = "koin" }
 koin-compose = { module = "io.insert-koin:koin-compose", version.ref = "koinCompose" }
-mongodb-realm = { module = "io.realm.kotlin:library-base", version.ref = "realm" }
 kotlin-coroutines = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-core", version.ref = "coroutines" }
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 stately-common = { module = "co.touchlab:stately-common", version.ref = "stately" }
@@ -68,12 +57,7 @@ room-compiler = { group = "androidx.room", name = "room-compiler", version.ref =
 sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "kotlinx-serialization" }
 androidx-navigation-compose = { module = "org.jetbrains.androidx.navigation:navigation-compose", version.ref = "androidx-navigation" }
-androidx-navigation-runtime-ktx = { group = "androidx.navigation", name = "navigation-runtime-ktx", version.ref = "navigationRuntimeKtx" }
 assertk = { module = "com.willowtreeapps.assertk:assertk", version.ref = "assertk" }
-compose-ui-test-junit4-android = { module = "androidx.compose.ui:ui-test-junit4-android", version.ref = "composeTest" }
-compose-ui-test-manifest = { module = "androidx.compose.ui:ui-test-manifest", version.ref = "composeTest" }
-core-ktx = { group = "androidx.test", name = "core-ktx", version.ref = "coreKtx" }
-lifecycle-viewmodel-compose = { module = "org.jetbrains.androidx.lifecycle:lifecycle-viewmodel-compose", version.ref = "lifecycleViewmodelCompose" }
 koin-compose-viewmodel = { module = "io.insert-koin:koin-compose-viewmodel", version = "4.0.0-RC1" }
 
 [plugins]
@@ -82,7 +66,6 @@ androidLibrary = { id = "com.android.library", version.ref = "agp" }
 jetbrainsCompose = { id = "org.jetbrains.compose", version.ref = "compose-plugin" }
 compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinMultiplatform = { id = "org.jetbrains.kotlin.multiplatform", version.ref = "kotlin" }
-realm-plugin = { id = "io.realm.kotlin", version.ref = "realm" }
 ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 room = { id = "androidx.room", version.ref = "room" }
 kotlinx-serialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }

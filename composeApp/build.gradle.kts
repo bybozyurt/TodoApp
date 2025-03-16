@@ -36,7 +36,6 @@ kotlin {
             implementation(libs.androidx.activity.compose)
             implementation(libs.koin.android)
             implementation(libs.androidx.core.splashscreen)
-            implementation(projects.shared) // Added shared module
         }
         commonMain.dependencies {
             implementation(compose.runtime)
@@ -45,10 +44,6 @@ kotlin {
             implementation(compose.ui)
             implementation(compose.components.uiToolingPreview)
 
-            implementation(libs.navigator)
-            implementation(libs.navigator.screen.model)
-            implementation(libs.navigator.transitions)
-            implementation(libs.navigator.koin)
             implementation(libs.koin.core)
             implementation(libs.koin.compose)
 
@@ -57,11 +52,7 @@ kotlin {
 
             implementation(libs.kotlinx.serialization.json)
 
-            //navigation
             implementation(libs.androidx.navigation.compose)
-
-            // required by koin
-            implementation("co.touchlab:stately-common:2.0.5")
 
             implementation(projects.shared)
             implementation(projects.feature.home)

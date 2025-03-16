@@ -29,8 +29,8 @@ kotlin {
                 implementation(libs.stately.common)
                 implementation(libs.kotlinx.serialization.json)
 
-                implementation(project(":domain"))
-                implementation(project(":core:di"))
+                implementation(projects.domain)
+                implementation(projects.core.di)
             }
         }
 
@@ -46,9 +46,6 @@ kotlin {
 
         create("iosMain") {
             dependsOn(getByName("commonMain"))
-            dependencies {
-                implementation(libs.stately.common)
-            }
         }
 
         getByName("iosX64Main") {

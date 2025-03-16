@@ -1,4 +1,4 @@
-rootProject.name = "KotlinProject"
+rootProject.name = "NoteApp"
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
 
 pluginManagement {

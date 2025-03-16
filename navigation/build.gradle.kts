@@ -15,10 +15,6 @@ kotlin {
     sourceSets {
         getByName("commonMain") {
             dependencies {
-                implementation(libs.navigator)
-                implementation(libs.navigator.screen.model)
-                implementation(libs.navigator.transitions)
-                implementation(libs.navigator.koin)
                 implementation(libs.androidx.navigation.compose)
                 implementation(libs.kotlinx.serialization.json)
                 implementation(projects.feature.home)
