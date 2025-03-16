@@ -1,7 +1,8 @@
-import ab.todoapp.feature.home.HomeScreen
+import ab.todoapp.navigation.AppNavGraph
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
-import cafe.adriel.voyager.navigator.Navigator
-import cafe.adriel.voyager.transitions.SlideTransition
+import androidx.compose.ui.Modifier
+import androidx.navigation.compose.rememberNavController
 import org.jetbrains.compose.ui.tooling.preview.Preview
 
 @Composable
@@ -14,11 +15,10 @@ fun App(
         darkTheme = darkTheme,
         dynamicColor = dynamicColor,
     ) {
-        Navigator(
-            HomeScreen()
-        ) {
-            SlideTransition(it)
-        }
+        AppNavGraph(
+            modifier = Modifier
+                .fillMaxSize(),
+            navController = rememberNavController()
+        )
     }
-
 }

@@ -4,6 +4,8 @@ import ab.todoapp.domain.model.ToDoTask
 import ab.todoapp.domain.usecase.AddTaskUseCase
 import ab.todoapp.domain.usecase.GetTasksUseCase
 import ab.todoapp.feature.home.HomeScreenEvent
+import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cafe.adriel.voyager.core.model.ScreenModel
 import cafe.adriel.voyager.core.model.screenModelScope
 import kotlinx.coroutines.CoroutineDispatcher
@@ -15,11 +17,11 @@ class HomeViewModel(
     private val ioDispatcher: CoroutineDispatcher,
     private val addTaskUseCase: AddTaskUseCase,
     private val getTasksUseCase: GetTasksUseCase,
-) : ScreenModel {
+) : ViewModel() {
 
     val getTasks = getTasksUseCase()
         .stateIn(
-            scope = screenModelScope,
+            scope = viewModelScope,
             started = SharingStarted.WhileSubscribed(5000),
             initialValue = null
         )
@@ -32,7 +34,7 @@ class HomeViewModel(
     }
 
     private fun addTask(task: ToDoTask) {
-        screenModelScope.launch(ioDispatcher) {
+        viewModelScope.launch(ioDispatcher) {
             addTaskUseCase(task)
         }
     }

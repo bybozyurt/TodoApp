@@ -1,7 +1,6 @@
-package ab.todoapp.feature.screens.task
+package ab.todoapp.feature.taskeditor
 
 import ab.todoapp.domain.model.ColorType
-import ab.todoapp.feature.taskeditor.TaskEditorViewModel
 import ab.todoapp.shared.Resources
 import androidx.compose.foundation.background
 import androidx.compose.foundation.border
@@ -31,7 +30,6 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBar
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
@@ -40,11 +38,6 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.core.screen.ScreenKey
-import cafe.adriel.voyager.koin.getScreenModel
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
 import ab.todoapp.feature.taskeditor.TaskScreenContract.*
 import ab.todoapp.ui.extensions.toComposeColor
 import ab.todoapp.ui.components.AppIcon
@@ -53,57 +46,43 @@ import ab.todoapp.ui.extensions.collectWithLifecycle
 import ab.todoapp.ui.theme.ErrorDark
 import androidx.compose.foundation.lazy.items
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import kotlin.random.Random
 
 const val INVALID_TASK_ID = -0L
-data class TaskEditorScreen(val id: Long = INVALID_TASK_ID) : Screen {
 
-    override val key: ScreenKey =
-        super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
+@Composable
+fun TaskEditorScreen(
+    viewModel: TaskEditorViewModel,
+    navigateToBack: () -> Unit,
+) {
+    val uiState by viewModel.uiState.collectAsStateWithLifecycle()
 
-    @Composable
-    override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
-        val viewModel = getScreenModel<TaskEditorViewModel>()
-        val uiState by viewModel.uiState.collectAsStateWithLifecycle()
-
-        viewModel.uiEffect.collectWithLifecycle { sideEffect ->
-            when (sideEffect) {
-                is SideEffect.NavigateToBack -> {
-                    navigator.pop()
-                }
-            }
+    viewModel.uiEffect.collectWithLifecycle { sideEffect ->
+        when (sideEffect) {
+            is SideEffect.NavigateToBack -> navigateToBack()
         }
-        Scaffold(
-            topBar = {
-                TopBar(
-                    id = id,
-                    onClick = {
-                        navigator.pop()
-                    },
-                    onDeleteClick = {
-                        viewModel.onAction(Events.OnDeleteTask(id))
-                    }
-                )
-            }
-        ) { paddingValues ->
-            TaskView(
-                modifier = Modifier.padding(paddingValues),
-                state = uiState,
-                onTaskEvent = viewModel::onAction,
-                taskId = id,
+    }
+    Scaffold(
+        topBar = {
+            TopBar(
+                id = viewModel.taskId,
+                onClick = navigateToBack,
+                onDeleteClick = {
+                    viewModel.onAction(Events.OnDeleteTask(viewModel.taskId))
+                }
             )
         }
-        LaunchedEffect(Unit) {
-            if (id != INVALID_TASK_ID) {
-                viewModel.initTask(id)
-            }
-        }
+    ) { paddingValues ->
+        TaskView(
+            modifier = Modifier.padding(paddingValues),
+            state = uiState,
+            onTaskEvent = viewModel::onAction,
+            taskId = viewModel.taskId,
+        )
     }
 }
 
 @Composable
-fun TaskView(
+private fun TaskView(
     modifier: Modifier,
     state: UiState,
     onTaskEvent: (Events) -> Unit,

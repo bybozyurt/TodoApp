@@ -3,6 +3,7 @@ plugins {
     id("com.android.library")
     alias(libs.plugins.jetbrainsCompose)
     alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.kotlinx.serialization)
 }
 
 kotlin {
@@ -26,6 +27,9 @@ kotlin {
                 implementation(libs.navigator.koin)
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
+                implementation(libs.koin.compose.viewmodel)
+                implementation(libs.androidx.navigation.compose)
+                implementation(libs.kotlinx.serialization.json)
                 implementation("co.touchlab:stately-common:2.0.5")
                 implementation(libs.lifecycle.runtime.compose)
 
@@ -34,7 +38,6 @@ kotlin {
                 implementation(project(":shared"))
                 implementation(project(":core:di"))
                 implementation(project(":core:ui"))
-                implementation(project(":navigation"))
             }
         }
 

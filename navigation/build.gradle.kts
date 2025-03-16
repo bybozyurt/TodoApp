@@ -1,6 +1,9 @@
 plugins {
     id("org.jetbrains.kotlin.multiplatform")
     id("com.android.library")
+    alias(libs.plugins.jetbrainsCompose)
+    alias(libs.plugins.compose.compiler)
+
 }
 
 kotlin {
@@ -16,6 +19,10 @@ kotlin {
                 implementation(libs.navigator.screen.model)
                 implementation(libs.navigator.transitions)
                 implementation(libs.navigator.koin)
+                implementation(libs.androidx.navigation.compose)
+                implementation(libs.kotlinx.serialization.json)
+                implementation(projects.feature.home)
+                implementation(projects.feature.taskeditor)
             }
         }
 

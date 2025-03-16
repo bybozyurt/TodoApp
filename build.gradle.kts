@@ -5,9 +5,9 @@ plugins {
     alias(libs.plugins.androidLibrary) apply false
     alias(libs.plugins.jetbrainsCompose) apply false
     alias(libs.plugins.kotlinMultiplatform) apply false
-    alias(libs.plugins.realm.plugin) apply false
     alias(libs.plugins.compose.compiler) apply false
     alias(libs.plugins.jetbrains.kotlin.jvm) apply false
+    alias(libs.plugins.kotlinx.serialization) apply false
 }
 
 buildscript {

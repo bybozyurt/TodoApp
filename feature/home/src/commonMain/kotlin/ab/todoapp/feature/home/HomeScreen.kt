@@ -13,62 +13,41 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import cafe.adriel.voyager.core.screen.Screen
-import cafe.adriel.voyager.core.screen.ScreenKey
-import cafe.adriel.voyager.koin.getScreenModel
 import ab.todoapp.feature.screens.home.ui.EmptyState
 import ab.todoapp.feature.home.ui.TaskList
-import ab.todoapp.navigation.SharedScreen
 import ab.todoapp.ui.components.AppIconButton
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
-import androidx.compose.runtime.setValue
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-import cafe.adriel.voyager.core.registry.rememberScreen
-import cafe.adriel.voyager.navigator.LocalNavigator
-import cafe.adriel.voyager.navigator.currentOrThrow
-import kotlin.random.Random
 
-class HomeScreen : Screen {
+@Composable
+fun HomeScreen(
+    viewModel: HomeViewModel,
+    onNavigateToTaskScreen: (Long) -> Unit
+) {
+    val tasks by viewModel.getTasks.collectAsStateWithLifecycle()
 
-    override val key: ScreenKey =
-        super.key + "${Random.nextDouble(Double.MIN_VALUE, Double.MAX_VALUE)}"
-
-    @Composable
-    override fun Content() {
-        val navigator = LocalNavigator.currentOrThrow
-        val viewModel = getScreenModel<HomeViewModel>()
-        val tasks by viewModel.getTasks.collectAsStateWithLifecycle()
-
-        var taskId by remember { mutableStateOf(0L) }
-        val taskEditorScreen = rememberScreen(SharedScreen.TaskEditorScreen(taskId))
-
-        Scaffold(
-            floatingActionButton = {
-                FloatingButton(
-                    onClick = {
-                        taskId = 0L
-                        navigator.push(taskEditorScreen)
-                    }
-                )
-            }
-        ) { paddingValues ->
-            if (tasks.isNullOrEmpty()) {
-                EmptyState()
-                return@Scaffold
-            }
-            TaskList(
-                modifier = Modifier
-                    .fillMaxSize()
-                    .padding(paddingValues),
-                tasks = tasks,
-                viewModel = viewModel,
-                onNavigateToTaskScreen = { id ->
-                    taskId = id
-                    navigator.push(taskEditorScreen)
+    Scaffold(
+        floatingActionButton = {
+            FloatingButton(
+                onClick = {
+                    onNavigateToTaskScreen(0L)
                 }
             )
         }
+    ) { paddingValues ->
+        if (tasks.isNullOrEmpty()) {
+            EmptyState()
+            return@Scaffold
+        }
+        TaskList(
+            modifier = Modifier
+                .fillMaxSize()
+                .padding(paddingValues),
+            tasks = tasks,
+            viewModel = viewModel,
+            onNavigateToTaskScreen = { id ->
+                onNavigateToTaskScreen(id)
+            }
+        )
     }
 }
 
