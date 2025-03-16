@@ -47,6 +47,9 @@ kotlin {
 
         create("iosMain") {
             dependsOn(getByName("commonMain"))
+            dependencies {
+                implementation(libs.koin.compose.viewmodel)
+            }
         }
 
         getByName("iosX64Main") {

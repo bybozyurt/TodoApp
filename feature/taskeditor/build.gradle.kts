@@ -43,6 +43,9 @@ kotlin {
 
         getByName("androidMain") {
             dependsOn(getByName("commonMain"))
+            dependencies {
+                implementation(libs.koin.compose.viewmodel)
+            }
         }
 
         create("iosMain") {

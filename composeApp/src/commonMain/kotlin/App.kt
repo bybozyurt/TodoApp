@@ -1,5 +1,4 @@
 import ab.todoapp.navigation.AppNavGraph
-import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.navigation.compose.rememberNavController
@@ -16,8 +15,7 @@ fun App(
         dynamicColor = dynamicColor,
     ) {
         AppNavGraph(
-            modifier = Modifier
-                .fillMaxSize(),
+            modifier = Modifier,
             navController = rememberNavController()
         )
     }
