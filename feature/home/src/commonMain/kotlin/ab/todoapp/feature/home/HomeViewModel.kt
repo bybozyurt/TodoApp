@@ -9,6 +9,7 @@ import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import ab.todoapp.feature.home.HomeScreenContract.Event
 
 class HomeViewModel(
     private val ioDispatcher: CoroutineDispatcher,
@@ -23,8 +24,8 @@ class HomeViewModel(
             initialValue = null
         )
 
-    fun onEvent(event: HomeScreenEvent) {
-        if (event is HomeScreenEvent.OnCheckedChange) {
+    fun onEvent(event: Event) {
+        if (event is Event.OnCheckedChange) {
             addTask(event.task)
             return
         }

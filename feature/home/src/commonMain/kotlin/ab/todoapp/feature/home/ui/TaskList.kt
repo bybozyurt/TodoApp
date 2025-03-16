@@ -25,8 +25,9 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import ab.todoapp.feature.home.HomeScreenEvent
+import ab.todoapp.feature.home.HomeScreenContract.*
 import ab.todoapp.feature.home.HomeViewModel
+import ab.todoapp.shared.Resources
 import ab.todoapp.ui.extensions.toComposeColor
 
 @OptIn(ExperimentalFoundationApi::class)
@@ -48,7 +49,7 @@ fun TaskList(
             span = StaggeredGridItemSpan.FullLine
         ) {
             Text(
-                text = "All Notes",
+                text = Resources.String.all_notes(),
                 style = MaterialTheme.typography.bodyMedium,
                 modifier = Modifier
                     .fillMaxWidth()
@@ -64,7 +65,7 @@ fun TaskList(
                     .animateItemPlacement(),
                 task = task,
                 onEvent = lambda@{ event ->
-                    if (event is HomeScreenEvent.OnTaskClick) {
+                    if (event is Event.OnTaskClick) {
                         onNavigateToTaskScreen(event.id)
                         return@lambda
                     }
@@ -79,7 +80,7 @@ fun TaskList(
 private fun TaskItemView(
     modifier: Modifier = Modifier,
     task: ToDoTask,
-    onEvent: (HomeScreenEvent) -> Unit
+    onEvent: (Event) -> Unit
 ) {
     val textDecoration = if (task.isCompleted) TextDecoration.LineThrough else TextDecoration.None
 
@@ -92,7 +93,7 @@ private fun TaskItemView(
             )
         ),
         onClick = {
-            onEvent.invoke(HomeScreenEvent.OnTaskClick(task.id))
+            onEvent.invoke(Event.OnTaskClick(task.id))
         }
     ) {
         Column(

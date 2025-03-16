@@ -2,7 +2,9 @@ package ab.todoapp.feature.home
 
 import ab.todoapp.domain.model.ToDoTask
 
-sealed class HomeScreenEvent {
-    data class OnCheckedChange(val task: ToDoTask) : HomeScreenEvent()
-    data class OnTaskClick(val id: Long) : HomeScreenEvent()
+interface HomeScreenContract {
+    sealed class Event {
+        data class OnCheckedChange(val task: ToDoTask) : Event()
+        data class OnTaskClick(val id: Long) : Event()
+    }
 }
