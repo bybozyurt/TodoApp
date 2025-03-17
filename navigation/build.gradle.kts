@@ -8,10 +8,17 @@ plugins {
 
 kotlin {
     androidTarget()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
-
+    applyDefaultHierarchyTemplate()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "navigation"
+            isStatic = true
+        }
+    }
     sourceSets {
         getByName("commonMain") {
             dependencies {
@@ -20,26 +27,6 @@ kotlin {
                 implementation(projects.feature.home)
                 implementation(projects.feature.taskeditor)
             }
-        }
-
-        getByName("androidMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        create("iosMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        getByName("iosX64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosArm64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosSimulatorArm64Main") {
-            dependsOn(getByName("iosMain"))
         }
     }
 }

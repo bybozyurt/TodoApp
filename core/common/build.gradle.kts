@@ -5,9 +5,17 @@ plugins {
 
 kotlin {
     androidTarget()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    applyDefaultHierarchyTemplate()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "core.common"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         getByName("commonMain") {
@@ -17,26 +25,6 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
                 implementation(libs.kotlin.coroutines)
             }
-        }
-
-        getByName("androidMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        create("iosMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        getByName("iosX64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosArm64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosSimulatorArm64Main") {
-            dependsOn(getByName("iosMain"))
         }
     }
 }

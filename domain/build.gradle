@@ -8,7 +8,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-
+    applyDefaultHierarchyTemplate()
     sourceSets {
         getByName("commonMain") {
             dependencies {
@@ -18,26 +18,6 @@ kotlin {
                 implementation("co.touchlab:stately-common:2.0.5")
                 implementation(projects.core.common)
             }
-        }
-
-        getByName("androidMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        create("iosMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        getByName("iosX64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosArm64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosSimulatorArm64Main") {
-            dependsOn(getByName("iosMain"))
         }
     }
 }

@@ -13,7 +13,7 @@ kotlin {
     iosX64()
     iosArm64()
     iosSimulatorArm64()
-
+    applyDefaultHierarchyTemplate()
 
     sourceSets {
         getByName("commonMain") {
@@ -42,22 +42,6 @@ kotlin {
                 implementation(libs.koin.android)
                 implementation(libs.androidx.core.splashscreen)
             }
-        }
-
-        create("iosMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        getByName("iosX64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosArm64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosSimulatorArm64Main") {
-            dependsOn(getByName("iosMain"))
         }
     }
 }

@@ -1,9 +1,9 @@
 package data.local
 
+import ab.todoapp.data.database.ToDoDatabase
+import ab.todoapp.data.database.dao.ToDoDao
+import ab.todoapp.data.model.ToDoTaskEntity
 import androidx.room.InvalidationTracker
-import database.ToDoDatabase
-import database.dao.ToDoDao
-import data.model.ToDoTaskEntity
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update

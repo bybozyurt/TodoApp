@@ -1,9 +1,9 @@
+import ab.todoapp.data.model.ToDoTaskEntity
+import ab.todoapp.data.source.local.LocalDataSource
+import ab.todoapp.data.source.local.LocalDataSourceImpl
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import data.local.LocalDataSource
-import data.local.LocalDataSourceImpl
 import data.local.MockDatabase
-import data.model.ToDoTaskEntity
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first

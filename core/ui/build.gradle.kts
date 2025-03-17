@@ -7,9 +7,17 @@ plugins {
 
 kotlin {
     androidTarget()
-    iosX64()
-    iosArm64()
-    iosSimulatorArm64()
+    applyDefaultHierarchyTemplate()
+    listOf(
+        iosX64(),
+        iosArm64(),
+        iosSimulatorArm64()
+    ).forEach { iosTarget ->
+        iosTarget.binaries.framework {
+            baseName = "core.ui"
+            isStatic = true
+        }
+    }
 
     sourceSets {
         getByName("commonMain") {
@@ -23,26 +31,6 @@ kotlin {
                 implementation(libs.lifecycle.runtime.compose)
                 implementation(projects.domain)
             }
-        }
-
-        getByName("androidMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        create("iosMain") {
-            dependsOn(getByName("commonMain"))
-        }
-
-        getByName("iosX64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosArm64Main") {
-            dependsOn(getByName("iosMain"))
-        }
-
-        getByName("iosSimulatorArm64Main") {
-            dependsOn(getByName("iosMain"))
         }
     }
 }

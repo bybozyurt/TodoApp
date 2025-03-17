@@ -7,7 +7,7 @@ plugins {
 
 kotlin {
     androidTarget()
-
+    applyDefaultHierarchyTemplate()
     listOf(
         iosX64(),
         iosArm64(),
@@ -26,22 +26,6 @@ kotlin {
                 implementation(compose.ui)
                 implementation(compose.runtime)
             }
-        }
-
-        val androidMain by getting {
-            dependsOn(commonMain)
-        }
-        val iosMain by creating {
-            dependsOn(commonMain)
-        }
-        val iosX64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosArm64Main by getting {
-            dependsOn(iosMain)
-        }
-        val iosSimulatorArm64Main by getting {
-            dependsOn(iosMain)
         }
     }
 }
