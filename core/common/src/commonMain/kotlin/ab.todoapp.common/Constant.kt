@@ -1,4 +1,4 @@
-package common
+package ab.todoapp.common
 
 object Constant {
     const val DB_FILE_NAME = "todo.db"

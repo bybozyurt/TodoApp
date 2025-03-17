@@ -32,7 +32,7 @@ kotlin {
 
                 implementation(projects.domain)
                 implementation(projects.shared)
-                implementation(projects.core.di)
+                implementation(projects.core.common)
                 implementation(projects.core.ui)
             }
         }

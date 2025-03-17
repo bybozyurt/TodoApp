@@ -42,7 +42,7 @@ kotlin {
 }
 
 android {
-    namespace = "ab.todoapp.core.di"
+    namespace = "ab.todoapp.core.common"
     compileSdk = 34
 
     defaultConfig {

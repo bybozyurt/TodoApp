@@ -1,6 +1,6 @@
 package ab.todoapp.feature.taskeditor.di
 
-import ab.todoapp.core.di.Dispatcher
+import ab.todoapp.common.di.Dispatcher
 import ab.todoapp.feature.taskeditor.TaskEditorViewModel
 import androidx.lifecycle.SavedStateHandle
 import org.koin.core.module.dsl.viewModel

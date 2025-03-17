@@ -30,7 +30,7 @@ kotlin {
                 implementation(libs.kotlinx.serialization.json)
 
                 implementation(projects.domain)
-                implementation(projects.core.di)
+                implementation(projects.core.common)
             }
         }
 

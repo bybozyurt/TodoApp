@@ -1,5 +1,6 @@
 package ab.todoapp.feature.home
 
+import ab.todoapp.common.Constant
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -29,7 +30,7 @@ fun HomeScreen(
         floatingActionButton = {
             FloatingButton(
                 onClick = {
-                    onNavigateToTaskScreen(0L)
+                    onNavigateToTaskScreen(Constant.INVALID_TASK_ID)
                 }
             )
         }

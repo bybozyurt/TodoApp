@@ -1,5 +1,6 @@
 package ab.todoapp.feature.taskeditor
 
+import ab.todoapp.common.Constant.INVALID_TASK_ID
 import ab.todoapp.domain.model.ColorType
 import ab.todoapp.shared.Resources
 import androidx.compose.foundation.background
@@ -46,8 +47,6 @@ import ab.todoapp.ui.extensions.collectWithLifecycle
 import ab.todoapp.ui.theme.ErrorDark
 import androidx.compose.foundation.lazy.items
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
-
-const val INVALID_TASK_ID = -0L
 
 @Composable
 fun TaskEditorScreen(
@@ -97,7 +96,7 @@ private fun TaskView(
     Column(
         modifier = modifier
             .fillMaxSize()
-            .padding(16.dp)
+            .padding(horizontal = 16.dp)
     ) {
         TextFieldColumn(
             title = state.title,

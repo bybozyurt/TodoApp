@@ -16,6 +16,7 @@ kotlin {
                 implementation(libs.koin.core)
                 implementation(libs.koin.compose)
                 implementation("co.touchlab:stately-common:2.0.5")
+                implementation(projects.core.common)
             }
         }
 

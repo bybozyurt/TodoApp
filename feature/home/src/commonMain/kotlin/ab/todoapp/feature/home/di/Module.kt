@@ -1,6 +1,6 @@
 package ab.todoapp.feature.home.di
 
-import ab.todoapp.core.di.Dispatcher
+import ab.todoapp.common.di.Dispatcher
 import ab.todoapp.feature.home.HomeViewModel
 import org.koin.core.module.dsl.viewModel
 import org.koin.core.qualifier.named

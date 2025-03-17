@@ -1,4 +1,4 @@
-package ab.todoapp.data.modules
+package ab.todoapp.data.di
 
 import org.koin.core.module.Module
 

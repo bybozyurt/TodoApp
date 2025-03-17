@@ -60,7 +60,7 @@ kotlin {
             implementation(projects.data)
             implementation(projects.domain)
             implementation(projects.navigation)
-            implementation(projects.core.di)
+            implementation(projects.core.common)
             implementation(projects.core.ui)
         }
         commonTest.dependencies {
