@@ -1,25 +1,50 @@
-# NoteApp
+# 📦 TodoApp - A Clean Architecture Compose Multiplatform Project
 
-**NoteApp** is a simple, cross-platform note-taking app developed with **Kotlin Multiplatform (KMP)**. It allows users to create, manage, and organize their notes efficiently, with synchronization across multiple devices.
+![Kotlin](https://img.shields.io/badge/Kotlin-Multiplatform-orange.svg?style=flat-square)
+![Jetpack Compose](https://img.shields.io/badge/Jetpack%20Compose-%F0%9F%8C%88-blue)
+![Koin](https://img.shields.io/badge/Koin-DI-brightgreen)
+![Room](https://img.shields.io/badge/Room-Database-blue)
+![Multiplatform](https://img.shields.io/badge/Multiplatform-Android%20%7C%20iOS-blueviolet)
 
-## Features
+🚀 **TodoApp** is a **Compose Multiplatform** application built using **Clean Architecture** and **Jetpack Compose**. It supports **Android & iOS** while following **modern best practices** for UI, state management, and dependency injection. The app provides a modularized architecture ensuring scalability, testability, and maintainability.
 
-- **Create Notes**: Add new notes with a title and description.
-- **Edit Notes**: Update the title or description of existing notes.
-- **Delete Notes**: Remove unwanted notes.
-- **Cross-Platform**: Built using Kotlin Multiplatform, the app works on both Android and iOS devices.
+---
 
-## Technologies Used
+## 🔥 **Technologies Used**
+- **Compose Multiplatform (KMP)** - Enables shared business logic for Android & iOS with shared UI
+- **Jetpack Compose** - Google’s modern UI toolkit
+- **Koin Dependency Injection** - DI for shared & platform-specific modules
+- **Room Database** - Local data persistence
+- **Navigation Compose** - Type-safe navigation for Compose
+- **Coroutines & Flows** - Asynchronous programming for smooth execution
+- **Serialization** - Uses `kotlinx.serialization` for JSON handling
 
-- **Kotlin Multiplatform (KMP)**: Share code between Android and iOS, enabling a cross-platform approach for building mobile apps.
-- **Jetpack Compose**: A modern UI toolkit for building native Android UIs in a declarative style.
-- **Room Database**: A local database for storing notes on Android. Provides an abstraction layer over SQLite to simplify database operations.
-- **Voyager**: A modern, declarative navigation library for Kotlin Multiplatform, simplifying navigation logic across platforms.
-- **Koin**: A lightweight dependency injection framework for Kotlin, used to manage dependencies in a clean and efficient manner across both Android and iOS.
-- **KSP (Kotlin Symbol Processing)**: A tool for generating code using annotations in Kotlin, utilized to streamline tasks like creating database schemas and API clients.
-- **Coroutines**: For handling asynchronous operations in a more readable and efficient manner.
-- **Kotlin Flow**: A reactive programming library that helps manage state and data streams, enabling the app to respond to changes in data in real-time.
+---
 
-## License
+## 🏗 **Project Structure**
+The project follows **Clean Architecture** with modularization to separate concerns effectively.
 
-This project is licensed under the MIT License.
+```plaintext
+TodoApp
+├── core              # Core utilities and shared logic
+│   ├── common        # Provides shared utilities
+│   ├── ui            # Contains reusable UI components and theme definitions.
+│
+├── feature           # Feature-based modularization (Independent screens)
+│   ├── home          # Home Screen Independent feature modules for managing UI & ViewModels
+│   ├── taskeditor    # Task Editor Screen Independent feature modules for managing UI & ViewModels
+│
+├── data              # Data layer (Repositories, Database handling)
+├── domain            # Domain layer (Use Cases, Business Logic)
+├── navigation        # Navigation module (Type-safe routing)
+├── composeApp        # Entry point for Jetpack Compose UI
+├── shared            # Shared module for resources (Android & iOS)
+```
+---
+
+### 🎯 **Why This Modularization?**
+✅ **Separation of Concerns** - UI, Data, and Business Logic remain independent.  
+✅ **Scalability** - New features can be added without breaking existing code.  
+✅ **Improved Maintainability** - Well-structured layers simplify debugging.  
+✅ **Kotlin Multiplatform Ready** - Shared code for Android & iOS.  
+
