@@ -11,7 +11,7 @@ val taskEditorModule = module {
     viewModel {(handle: SavedStateHandle) ->
         TaskEditorViewModel(
             ioDispatcher = get(named(Dispatcher.IO)),
-            addTaskUseCase = get(),
+            saveTaskUseCase = get(),
             deleteTaskUseCase = get(),
             getTaskByIdUseCase = get(),
             savedStateHandle = handle,

@@ -10,7 +10,7 @@ val homeModule = module {
     viewModel {
         HomeViewModel(
             ioDispatcher = get(named(Dispatcher.IO)),
-            addTaskUseCase = get(),
+            saveTaskUseCase = get(),
             getTasksUseCase = get()
         )
     }

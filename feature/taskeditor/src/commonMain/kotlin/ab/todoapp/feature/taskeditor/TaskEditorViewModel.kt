@@ -5,6 +5,7 @@ import ab.todoapp.domain.model.ToDoTask
 import ab.todoapp.domain.usecase.AddTaskUseCase
 import ab.todoapp.domain.usecase.DeleteTaskUseCase
 import ab.todoapp.domain.usecase.GetTaskByIdUseCase
+import ab.todoapp.domain.usecase.SaveTaskUseCase
 import ab.todoapp.feature.taskeditor.TaskScreenContract.*
 import ab.todoapp.feature.taskeditor.navigation.TaskEditor
 import ab.todoapp.ui.delegate.mvi.MVI
@@ -18,7 +19,7 @@ import kotlinx.coroutines.launch
 
 class TaskEditorViewModel(
     private val ioDispatcher: CoroutineDispatcher,
-    private val addTaskUseCase: AddTaskUseCase,
+    private val saveTaskUseCase: SaveTaskUseCase,
     private val deleteTaskUseCase: DeleteTaskUseCase,
     private val getTaskByIdUseCase: GetTaskByIdUseCase,
     private val savedStateHandle: SavedStateHandle
@@ -37,8 +38,7 @@ class TaskEditorViewModel(
     }
 
     init {
-        val args : TaskEditor = savedStateHandle.toRoute()
-        taskId = args.id
+        taskId = savedStateHandle["id"] ?: INVALID_TASK_ID
         initTask()
     }
 
@@ -91,7 +91,7 @@ class TaskEditorViewModel(
 
     private fun addTask(task: ToDoTask) {
         viewModelScope.launch(ioDispatcher) {
-            addTaskUseCase(task)
+            saveTaskUseCase(task)
             emitUiEffect(SideEffect.NavigateToBack)
         }
     }

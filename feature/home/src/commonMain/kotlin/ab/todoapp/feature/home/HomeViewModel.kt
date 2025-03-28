@@ -1,8 +1,8 @@
 package ab.todoapp.feature.home
 
 import ab.todoapp.domain.model.ToDoTask
-import ab.todoapp.domain.usecase.AddTaskUseCase
 import ab.todoapp.domain.usecase.GetTasksUseCase
+import ab.todoapp.domain.usecase.SaveTaskUseCase
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.CoroutineDispatcher
@@ -13,7 +13,7 @@ import ab.todoapp.feature.home.HomeScreenContract.Event
 
 class HomeViewModel(
     private val ioDispatcher: CoroutineDispatcher,
-    private val addTaskUseCase: AddTaskUseCase,
+    private val saveTaskUseCase: SaveTaskUseCase,
     private val getTasksUseCase: GetTasksUseCase,
 ) : ViewModel() {
 
@@ -33,7 +33,7 @@ class HomeViewModel(
 
     private fun addTask(task: ToDoTask) {
         viewModelScope.launch(ioDispatcher) {
-            addTaskUseCase(task)
+            saveTaskUseCase(task)
         }
     }
 }
