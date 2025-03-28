@@ -8,7 +8,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.update
 
-class MockDatabase : ToDoDatabase() {
+class FakeDatabase : ToDoDatabase() {
 
     private val tasksFlow = MutableStateFlow<List<ToDoTaskEntity>>(emptyList())
 

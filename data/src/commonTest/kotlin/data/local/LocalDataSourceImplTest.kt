@@ -3,7 +3,7 @@ import ab.todoapp.data.source.local.LocalDataSource
 import ab.todoapp.data.source.local.LocalDataSourceImpl
 import assertk.assertThat
 import assertk.assertions.isEqualTo
-import data.local.MockDatabase
+import data.local.FakeDatabase
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.flow.first
@@ -37,9 +37,9 @@ class LocalDataSourceImplTest {
     @Test
     fun `addTask should add a task to the data source`() = scope.runTest {
         // Initialize MockDatabase and LocalDataSourceImpl
-        val mockDatabase = MockDatabase()
+        val fakeDatabase = FakeDatabase()
         localDataSource = LocalDataSourceImpl(
-            db = mockDatabase,
+            db = fakeDatabase,
             dispatcher = StandardTestDispatcher()
         )
 
@@ -55,9 +55,9 @@ class LocalDataSourceImplTest {
 
     @Test
     fun `updateTask should update a task in the data source`() = scope.runTest {
-        val mockDatabase = MockDatabase()
+        val fakeDatabase = FakeDatabase()
         localDataSource = LocalDataSourceImpl(
-            db = mockDatabase,
+            db = fakeDatabase,
             dispatcher = StandardTestDispatcher()
         )
 
@@ -76,9 +76,9 @@ class LocalDataSourceImplTest {
 
     @Test
     fun `deleteTask should remove a task from the data source`() = scope.runTest {
-        val mockDatabase = MockDatabase()
+        val fakeDatabase = FakeDatabase()
         localDataSource = LocalDataSourceImpl(
-            db = mockDatabase,
+            db = fakeDatabase,
             dispatcher = StandardTestDispatcher()
         )
 
@@ -95,9 +95,9 @@ class LocalDataSourceImplTest {
 
     @Test
     fun `getTaskById should return the correct task`() = scope.runTest {
-        val mockDatabase = MockDatabase()
+        val fakeDatabase = FakeDatabase()
         localDataSource = LocalDataSourceImpl(
-            db = mockDatabase,
+            db = fakeDatabase,
             dispatcher = StandardTestDispatcher()
         )
 
