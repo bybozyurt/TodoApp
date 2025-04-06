@@ -1,6 +1,7 @@
 package ab.todoapp.feature.home
 
 import ab.todoapp.common.Constant
+import ab.todoapp.feature.home.ui.EmptyState
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.padding
@@ -14,7 +15,6 @@ import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
-import ab.todoapp.feature.screens.home.ui.EmptyState
 import ab.todoapp.feature.home.ui.TaskList
 import ab.todoapp.ui.components.AppIconButton
 import androidx.lifecycle.compose.collectAsStateWithLifecycle

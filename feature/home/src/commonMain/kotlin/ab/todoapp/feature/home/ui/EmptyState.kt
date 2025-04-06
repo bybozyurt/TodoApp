@@ -1,4 +1,4 @@
-package ab.todoapp.feature.screens.home.ui
+package ab.todoapp.feature.home.ui
 
 import ab.todoapp.shared.Resources
 import ab.todoapp.ui.components.AppIcon
